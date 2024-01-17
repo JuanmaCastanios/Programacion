@@ -60,7 +60,5 @@ public class AppTelevisor {
             }
             System.out.println(tv);
         } while (continuar);
-        
     }
-    
 }
