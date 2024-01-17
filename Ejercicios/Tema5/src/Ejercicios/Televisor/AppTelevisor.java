@@ -1,11 +1,65 @@
 package Ejercicios.Televisor;
 
 import Televisor.Televisor;
+import java.util.Scanner;
 
 public class AppTelevisor {
     public static void main(String[] args) {
-        Televisor tv = new Televisor("16238xy", 24, 34);
-        System.out.println(tv);
+        Scanner dato = new Scanner(System.in);
+        boolean continuar = true;
+
+        System.out.print("Introduce las pulgadas: ");
+        double pulgadas = dato.nextDouble();
+        System.out.print("Introduce el numero de canales: ");
+        int numCanales = dato.nextInt();
+        
+        Televisor tv = new Televisor("12744712gjf", pulgadas, numCanales);
+        
+        do {
+            System.out.println("---------------------------------------------");
+            System.out.print("Elije una opción:\nEncender/Apagar televisor -> 1\nSilenciar/Desilenciar televisor -> 2\n" + 
+                    "Cambiar de canal -> 3\nSubir un canal -> 4\nBajar un canal -> 5\nSubir volumen -> 6\nBajar volumen -> 7\nSalir -> 8\nRespuesta: ");
+            int respuesta = dato.nextInt();
+            System.out.println("---------------------------------------------");
+            switch (respuesta) {
+                case 1:{
+                    tv.setEncendido();
+                }break;
+
+                case 2:{
+                    tv.setSilenciado();
+                }break;
+
+                case 3:{
+                    System.out.print("¿A que canal quieres cambiar?: ");
+                    tv.setCanalActual(dato.nextInt());
+                }break;
+
+                case 4:{
+                    tv.subirCanal();
+                }break;
+
+                case 5:{
+                    tv.bajarCanal();
+                }break;
+
+                case 6:{
+                    tv.subirVolumen();
+                }break;
+
+                case 7:{
+                    tv.bajarVolumen();
+                }break;
+
+                case 8:{  
+                }break;
+
+                default:{
+                    System.out.println("ERROR.Respuesta incorrecta");
+                }break;
+            }
+            System.out.println(tv);
+        } while (continuar);
         
     }
     

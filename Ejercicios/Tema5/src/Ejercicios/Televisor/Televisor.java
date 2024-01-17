@@ -25,51 +25,94 @@ public class Televisor {
     }
 
     //Métodos
-    public void setEncendido(boolean encendido){
-        this.encendido = encendido;
-        if (this.encendido == true){
+    public void setEncendido(){
+        if(encendido == true){
+            encendido = false;
+        }
+        else{
             canalActual = 1;
-        } 
+            encendido = true;
+        }
     }
-    public void setSilenciado(boolean silenciado){
-        this.silenciado = silenciado;
+    public void setSilenciado(){
+        if(encendido == false){
+            System.out.println("El televisor esta apagado");
+        }
+        else{
+            if(silenciado == true){
+                silenciado = false;
+            }
+            else{
+                silenciado = true;
+            }
+        }
     }
 
     public void setCanalActual(int canalActual){
-        if(canalActual <= numeroCanales && canalActual >= 0){
-            this.canalActual = canalActual;
+        if(encendido == false){
+            System.out.println("El televisor esta apagado");
+        }
+        else{
+            if(canalActual <= numeroCanales && canalActual >= 0){
+                this.canalActual = canalActual;
+            }
+            else{
+                System.out.println("ERROR.El canal no existe");
+            }
         }
         
     }
 
     public void subirCanal(){
-        canalActual += 1;
-        if (canalActual > numeroCanales){
-            canalActual = 1;
+        if(encendido == false){
+            System.out.println("El televisor esta apagado");
+        }
+        else{
+            canalActual += 1;
+            if (canalActual > numeroCanales){
+                canalActual = 1;
+            }
         }
     }
 
     public void bajarCanal(){
-        canalActual -= 1;
-        if (canalActual < 1){
-            canalActual = numeroCanales;
+        if(encendido == false){
+            System.out.println("El televisor esta apagado");
+        }
+        else{
+            canalActual -= 1;
+            if (canalActual < 1){
+                canalActual = numeroCanales;
+            }
         }
     }
 
     public void subirVolumen(){
-        volumen += 1;
-        if (volumen > VOLUMENMAX){
-            volumen -= 1;
+        silenciado = false;
+        if(encendido == false){
+            System.out.println("El televisor esta apagado");
+        }
+        else{
+            volumen += 1;
+            if (volumen > VOLUMENMAX){
+                volumen -= 1;
+            }
         }
     }
 
     public void bajarVolumen(){
-        volumen -= 1;
-        if (volumen < 0){
-            volumen += 1;
+        silenciado = false;
+        if(encendido == false){
+            System.out.println("El televisor esta apagado");
         }
-        if (volumen == 0){
-            silenciado = true;
+        else{
+            volumen -= 1;
+            if (volumen < 0){
+                volumen += 1;
+            }
+            if (volumen == 0){
+                silenciado = true;
+            }
         }
     }
 
