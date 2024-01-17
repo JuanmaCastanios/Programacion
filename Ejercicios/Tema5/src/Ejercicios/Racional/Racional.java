@@ -14,10 +14,12 @@ public class Racional {
         this.num = num;
         this.den = den;
     }
+
     public Racional(){
         num = 0;
         den = 0;
     }
+    
     //Métodos
     public void setNumerador(int num){
         this.num = num;
@@ -65,7 +67,7 @@ public class Racional {
 
     public double toDecimal(){
         NumberFormat formato = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        formato.setMaximumFractionDigits(3);
+        formato.setMaximumFractionDigits(4);
         return Double.parseDouble(formato.format(num/(double)den));
     }
 
@@ -121,17 +123,15 @@ public class Racional {
         }
     }
     
-    public void compareTo(Racional r){
+    public int compareTo(Racional r){
         if(this.toDecimal() == r.toDecimal()){
-            System.out.println(this + " es igual que " + r);
+            return 0;
         }
         else if(this.toDecimal() > r.toDecimal()){
-            System.out.println(this + " es mayor que " + r);
+            return 1;
         }
         else{
-            System.out.println(this + " es menor que " + r);
-        }
-            
+            return -1;
+        }   
     }
-    
 }
