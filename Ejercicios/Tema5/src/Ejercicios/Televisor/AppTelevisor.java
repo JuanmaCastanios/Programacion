@@ -24,41 +24,48 @@ public class AppTelevisor {
             switch (respuesta) {
                 case 1:{
                     tv.setEncendido();
+                    System.out.println(tv);
                 }break;
 
                 case 2:{
                     tv.setSilenciado();
+                    System.out.println(tv);
                 }break;
 
                 case 3:{
                     System.out.print("¿A que canal quieres cambiar?: ");
                     tv.setCanalActual(dato.nextInt());
+                    System.out.println(tv);
                 }break;
 
                 case 4:{
                     tv.subirCanal();
+                    System.out.println(tv);
                 }break;
 
                 case 5:{
                     tv.bajarCanal();
+                    System.out.println(tv);
                 }break;
 
                 case 6:{
                     tv.subirVolumen();
+                    System.out.println(tv);
                 }break;
 
                 case 7:{
                     tv.bajarVolumen();
+                    System.out.println(tv);
                 }break;
 
-                case 8:{  
+                case 8:{
+                    continuar = false;
                 }break;
 
                 default:{
                     System.out.println("ERROR.Respuesta incorrecta");
                 }break;
             }
-            System.out.println(tv);
         } while (continuar);
     }
 }

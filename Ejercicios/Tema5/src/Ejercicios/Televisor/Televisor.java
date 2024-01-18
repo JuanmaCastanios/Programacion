@@ -4,7 +4,7 @@ public class Televisor {
 
     //Atributos
     private String numeroSerie;
-    private double tamañoPulgada;
+    private double tamanioPulgada;
     private int numeroCanales;
     private int canalActual;
     private int volumen;
@@ -16,7 +16,7 @@ public class Televisor {
     //Contructor
     public Televisor(String numeroSerie, double tamañoPulgada, int numeroCanales){
         this.numeroSerie = numeroSerie;
-        this.tamañoPulgada = tamañoPulgada;
+        this.tamanioPulgada = tamañoPulgada;
         this.numeroCanales = numeroCanales;
         canalActual = 1;
         volumen = 15;
@@ -24,7 +24,7 @@ public class Televisor {
         silenciado = false;
     }
 
-    //Métodos
+    //Metodos
     public void setEncendido(){
         if(encendido == true){
             encendido = false;
@@ -53,7 +53,7 @@ public class Televisor {
             System.out.println("El televisor esta apagado");
         }
         else{
-            if(canalActual <= numeroCanales && canalActual >= 0){
+            if(canalActual <= numeroCanales && canalActual >= 1){
                 this.canalActual = canalActual;
             }
             else{
@@ -93,9 +93,8 @@ public class Televisor {
             System.out.println("El televisor esta apagado");
         }
         else{
-            volumen += 1;
-            if (volumen > VOLUMENMAX){
-                volumen -= 1;
+            if (volumen <= VOLUMENMAX){
+                volumen += 1;
             }
         }
     }
@@ -106,9 +105,8 @@ public class Televisor {
             System.out.println("El televisor esta apagado");
         }
         else{
-            volumen -= 1;
-            if (volumen < 0){
-                volumen += 1;
+            if (volumen >= 0){
+                volumen -= 1;
             }
             if (volumen == 0){
                 silenciado = true;
@@ -118,6 +116,6 @@ public class Televisor {
 
     @Override
     public String toString(){
-        return "Numero de Serie: " + numeroSerie + " Pulgadas: " + tamañoPulgada + "\nEncendido: " + encendido + " Silenciado: " + silenciado + "\nCanal: " + canalActual + " Volumen: " + volumen;
+        return "Numero de Serie: " + numeroSerie + " Pulgadas: " + tamanioPulgada + "\nEncendido: " + encendido + " Silenciado: " + silenciado + "\nCanal: " + canalActual + " Volumen: " + volumen;
     }
 }
