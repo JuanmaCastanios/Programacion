@@ -13,32 +13,37 @@ import CalculadoraEstandar.CalculadoraEstandar;
 public class GUICalculadoraEstandar extends javax.swing.JFrame {
     private String aux = "";
     private String operacion;
-    CalculadoraEstandar calculadora;
+    CalculadoraEstandar CalculadoraEstandar;
     
     public void seleccionarOperacion(String opercacion){
         switch (opercacion) {
             case "+":
-                resultado.setText(String.valueOf(calculadora.suma(calculadora.getNum1(), calculadora.getNum2())));
+                resultado.setText(String.valueOf(CalculadoraEstandar.suma(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
                 break;
             
             case "-":
-                resultado.setText(String.valueOf(calculadora.resta(calculadora.getNum1(), calculadora.getNum2())));
+                resultado.setText(String.valueOf(CalculadoraEstandar.resta(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
                 break;
             
             case "*":
-                resultado.setText(String.valueOf(calculadora.producto(calculadora.getNum1(), calculadora.getNum2())));
+                resultado.setText(String.valueOf(CalculadoraEstandar.producto(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
                 break;
                 
             case "/":
-                resultado.setText(String.valueOf(calculadora.division(calculadora.getNum1(), calculadora.getNum2())));
+                if(CalculadoraEstandar.getNum2() == 0){
+                    error.setText("ERROR.No se puede dividir entre 0");
+                    resultado.setText("INF");
+                }
+                else{
+                resultado.setText(String.valueOf(CalculadoraEstandar.division(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
+                }
                 break;
-                
             case "%":
-                resultado.setText(String.valueOf(calculadora.modulo(calculadora.getNum1(), calculadora.getNum2())));
+                resultado.setText(String.valueOf(CalculadoraEstandar.modulo(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
                 break;
             
             case "^":
-                resultado.setText(String.valueOf(calculadora.potencia(calculadora.getNum1(), calculadora.getNum2())));
+                resultado.setText(String.valueOf(CalculadoraEstandar.potencia(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
                 break;
         }
     }
@@ -48,7 +53,7 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
      */
     public GUICalculadoraEstandar() {
         initComponents();
-        calculadora = new CalculadoraEstandar();
+        CalculadoraEstandar = new CalculadoraEstandar();
     }
 
     /**
@@ -85,6 +90,7 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
         clear = new javax.swing.JButton();
         borrar = new javax.swing.JButton();
         resultado = new javax.swing.JTextField();
+        error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -275,6 +281,12 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
 
         resultado.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         resultado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        resultado.setFocusable(false);
+
+        error.setForeground(new java.awt.Color(255, 0, 51));
+        error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        error.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        error.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -340,11 +352,17 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
                                 .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 9, Short.MAX_VALUE))))
             .addComponent(resultado, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(error, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(error, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -405,8 +423,9 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
     private void clearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMouseClicked
         resultado.setText("");
         aux = "";
-        calculadora.setNum1(0);
-        calculadora.setNum2(0);
+        error.setText("");
+        CalculadoraEstandar.setNum1(0);
+        CalculadoraEstandar.setNum2(0);
     }//GEN-LAST:event_clearMouseClicked
 
     private void unoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_unoMouseClicked
@@ -457,6 +476,7 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
     private void clearErrorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearErrorMouseClicked
         resultado.setText("");
         aux = "";
+        error.setText("");
     }//GEN-LAST:event_clearErrorMouseClicked
 
     private void borrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarMouseClicked
@@ -467,50 +487,78 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
     }//GEN-LAST:event_borrarMouseClicked
 
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
-        calculadora.setNum2(Double.parseDouble(aux));
-        seleccionarOperacion(operacion);
+        try {
+            CalculadoraEstandar.setNum2(Double.parseDouble(aux));
+            seleccionarOperacion(operacion);
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_igualMouseClicked
 
     private void sumaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sumaMouseClicked
-        operacion = "+";
-        calculadora.setNum1(Double.parseDouble(aux));
-        resultado.setText("");
-        aux = "";
+        try{
+            operacion = "+";
+            CalculadoraEstandar.setNum1(Double.parseDouble(aux));
+            resultado.setText("");
+            aux = "";
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_sumaMouseClicked
 
     private void restaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restaMouseClicked
-        operacion = "-";
-        calculadora.setNum1(Double.parseDouble(aux));
-        resultado.setText("");
-        aux = "";
+        try{
+            operacion = "-";
+            CalculadoraEstandar.setNum1(Double.parseDouble(aux));
+            resultado.setText("");
+            aux = "";
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_restaMouseClicked
 
     private void productoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productoMouseClicked
-        operacion = "*";
-        calculadora.setNum1(Double.parseDouble(aux));
-        resultado.setText("");
-        aux = "";
+        try{    
+            operacion = "*";
+            CalculadoraEstandar.setNum1(Double.parseDouble(aux));
+            resultado.setText("");
+            aux = "";
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_productoMouseClicked
 
     private void divisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divisionMouseClicked
-        operacion = "/";
-        calculadora.setNum1(Double.parseDouble(aux));
-        resultado.setText("");
-        aux = "";
+        try{
+            operacion = "/";
+            CalculadoraEstandar.setNum1(Double.parseDouble(aux));
+            resultado.setText("");
+            aux = "";
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_divisionMouseClicked
 
     private void moduloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moduloMouseClicked
-        operacion = "%";
-        calculadora.setNum1(Double.parseDouble(aux));
-        resultado.setText("");
-        aux = "";
+        try{
+            operacion = "%";
+            CalculadoraEstandar.setNum1(Double.parseDouble(aux));
+            resultado.setText("");
+            aux = "";
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_moduloMouseClicked
 
     private void potenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_potenciaMouseClicked
-        operacion = "^";
-        calculadora.setNum1(Double.parseDouble(aux));
-        resultado.setText("");
-        aux = "";
+        try{
+            operacion = "^";
+            CalculadoraEstandar.setNum1(Double.parseDouble(aux));
+            resultado.setText("");
+            aux = "";
+        } catch (java.lang.NumberFormatException ex) {
+            this.error.setText("ERROR. Dato no numérico");
+        }
     }//GEN-LAST:event_potenciaMouseClicked
 
     private void negativoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_negativoMouseClicked
@@ -586,6 +634,7 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
     private javax.swing.JButton cuatro;
     private javax.swing.JButton division;
     private javax.swing.JButton dos;
+    private javax.swing.JLabel error;
     private javax.swing.JButton fracion;
     private javax.swing.JButton igual;
     private javax.swing.JButton modulo;
