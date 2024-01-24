@@ -33,6 +33,7 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
                 if(CalculadoraEstandar.getNum2() == 0){
                     error.setText("ERROR.No se puede dividir entre 0");
                     resultado.setText("INF");
+                    resultado.requestFocus();         
                 }
                 else{
                 resultado.setText(String.valueOf(CalculadoraEstandar.division(CalculadoraEstandar.getNum1(), CalculadoraEstandar.getNum2())));
@@ -285,7 +286,6 @@ public class GUICalculadoraEstandar extends javax.swing.JFrame {
 
         error.setForeground(new java.awt.Color(255, 0, 51));
         error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        error.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         error.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
