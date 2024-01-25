@@ -140,8 +140,10 @@ public class AppFigura extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCuadradoMouseClicked
 
     private void botonRectanguloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRectanguloMouseClicked
+        this.setVisible(false);
         Rectangulo figura = new Rectangulo(Double.parseDouble(JOptionPane.showInputDialog(null, "Introduce el base: ", "RECTANGULO", 3)), Double.parseDouble(JOptionPane.showInputDialog(null, "Introduce el altura: ", "CUADRADO", 3)));
         JOptionPane.showMessageDialog(null, figura, "RECTANGULO", 1);
+        this.setVisible(true);
     }//GEN-LAST:event_botonRectanguloMouseClicked
 
     private void botonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRectanguloActionPerformed
