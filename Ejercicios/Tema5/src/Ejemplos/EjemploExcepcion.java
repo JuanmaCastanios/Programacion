@@ -15,18 +15,17 @@ public class EjemploExcepcion {
     }
 
     public static void metodo11(){
+        metodo111();
+    }
+
+    public static void metodo111(){
         try{
-            metodo111();
-        } catch (java.lang.IndexOutOfBoundsException eox) {
+            String s = null;
+            System.out.println("Mi cadena es " + s.toLowerCase());
+        }catch (java.lang.IndexOutOfBoundsException eox) {
             System.out.println("Manejo error: " + eox.getMessage());
         }catch (java.lang.NullPointerException eox2) {
             System.out.println("Manejo error: " + eox2.getMessage());
         }
-    }
-
-    public static void metodo111(){
-        String s = null;
-        System.out.println("Mi cadena es " + s.toLowerCase());
-        
     }
 }
