@@ -18,4 +18,9 @@ public class Persona {
     public double getPeso(){
         return peso;
     }
+    
+    @Override
+    public String toString(){
+        return getNombre() + " --- " + getPeso();
+    }
 }

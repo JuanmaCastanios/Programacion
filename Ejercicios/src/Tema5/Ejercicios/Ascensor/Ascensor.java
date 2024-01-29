@@ -1,4 +1,4 @@
-package Ejercicios.Ascensor;
+package Tema5.Ejercicios.Ascensor;
 
 import javax.swing.JOptionPane;
 
@@ -25,7 +25,7 @@ public class Ascensor {
         return pisoMax;
     }
 
-    public int getCapacidad(){
+    public double getCapacidad(){
         return capacidad;
     }
 
@@ -78,9 +78,15 @@ public class Ascensor {
     }
 
     public void cambiarPiso(){
-        int piso = JOptionPane.showInputDialog(null, "Introduce al piso que quieres ir: ", "Cambio Piso", 1);
-        pisoActual = piso;
+        String piso = JOptionPane.showInputDialog(null, "Introduce al piso que quieres ir: ", "Cambio Piso", 1);
+        pisoActual = Integer.parseInt(piso);
     }
 
+    public void entraPersona(Persona p){
+        capacidad += p.getPeso();
+    }
     
+    public void salePersona(Persona p){
+        capacidad -= p.getPeso();
+    }
 }
