@@ -67,5 +67,6 @@ public class Cliente {
 
     public double calcularFactura(){
         
+        return (10 * barco.getEslora()) * 2;
     }
 }

@@ -20,5 +20,38 @@ public class Barco {
         amarre = "";
                 
     }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public double getEslora() {
+        return eslora;
+    }
+
+    public void setEslora(double eslora) {
+        this.eslora = eslora;
+    }
+
+    public String getAmarre() {
+        return amarre;
+    }
+
+    public void setAmarre(String amarre) {
+        this.amarre = amarre;
+    }
+
+    public int getAñoFabricacion() {
+        return añoFabricacion;
+    }
+
+    public void setAñoFabricacion(int añoFabricacion) {
+        this.añoFabricacion = añoFabricacion;
+    }
+    
     
 }
