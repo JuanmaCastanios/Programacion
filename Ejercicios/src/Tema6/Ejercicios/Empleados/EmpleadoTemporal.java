@@ -1,0 +1,43 @@
+
+package Tema6.Ejercicios.Empleados;
+
+import java.time.LocalDate;
+import java.time.Month;
+
+/**
+ *
+ * @author bladiaju
+ */
+public class EmpleadoTemporal extends Empleado{
+    //Atributos
+    private LocalDate fechaAlta;
+    private LocalDate fechaBaja;
+    //Constructores
+    public EmpleadoTemporal(String nombre, String apellidos, String dni, double sueldo){
+        super(nombre, apellidos, dni, sueldo);
+        fechaAlta = LocalDate.of(2024, Month.MARCH, 24);
+        fechaBaja = LocalDate.of(2024, Month.SEPTEMBER, 15);
+    }
+    //Metodos
+
+    public LocalDate getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(LocalDate fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public LocalDate getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(LocalDate fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+    
+    @Override
+    public String toString() {
+        return "Empleado Temporal\nNombre: " + this.nombre + "\nApellidos: " + this.apellidos + "\nDNI: " + this.dni + "\nSueldo: " + this.sueldo + "\nFecha Alta: " + this.fechaAlta + "\nFecha Baja: " + this.fechaBaja;
+    }
+}
