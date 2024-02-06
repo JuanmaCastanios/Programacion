@@ -11,18 +11,37 @@ public class EmpleadoFijo extends Empleado{
     //Atributos
     private int anioAlta;
     private double salarioBase;
-    private final double complemento = 350;
+    private double complemento;
     //Constructores
     public EmpleadoFijo(String nombre, String apellidos, String dni, double salarioBase, int anioAlta){
         super(nombre, apellidos, dni);
         this.anioAlta = anioAlta;
     }
     //Metodos
+ 
+    public int getAnioAlta() {
+        return anioAlta;
+    }
+
+
+    public void setAnioAlta(int anioAlta) {
+        this.anioAlta = anioAlta;
+    }
+
+
+    public double getSalarioBase() {
+        return salarioBase;
+    }
+
+
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
 
     @Override
-    public double calculoSueldo(){
-        int aniosContratado = (LocalDate.now().getYear()) - anioAlta;
-        return salarioBase + (complemento * aniosContratado);
+    public void calculoSueldo(Empleado obj){
+        int aniosContratado = (LocalDate.now().getYear()) - this.anioAlta;
+        this.sueldo = this.salarioBase + (this.complemento * aniosContratado);
     }
 
     @Override

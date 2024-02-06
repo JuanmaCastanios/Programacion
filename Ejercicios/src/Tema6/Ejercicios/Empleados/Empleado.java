@@ -20,8 +20,8 @@ public class Empleado {
     //Métodos
     
    
-    public double calculoSueldo(){
-        return sueldo;
+    public void calculoSueldo(Empleado obj){
+        getSueldo();
     }
 
     public String getNombre() {
