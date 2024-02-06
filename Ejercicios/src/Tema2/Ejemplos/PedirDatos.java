@@ -1,4 +1,4 @@
-package EjemplosTema2;
+package Tema2.Ejemplos;
 
 import java.util.Scanner;
 //Ejemplo de petición de datos de distinto tipo al usuario para meterlos a través de teclado

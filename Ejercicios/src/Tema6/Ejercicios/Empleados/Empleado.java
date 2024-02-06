@@ -12,11 +12,10 @@ public class Empleado {
     protected String dni;
     protected double sueldo;
     //Constructores
-    public Empleado(String nombre, String apellidos, String dni, double sueldo){
+    public Empleado(String nombre, String apellidos, String dni){
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
-        this.sueldo = sueldo;
     }
     //Métodos
     

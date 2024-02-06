@@ -13,8 +13,8 @@ public class EmpleadoTemporal extends Empleado{
     private LocalDate fechaAlta;
     private LocalDate fechaBaja;
     //Constructores
-    public EmpleadoTemporal(String nombre, String apellidos, String dni, double sueldo){
-        super(nombre, apellidos, dni, sueldo);
+    public EmpleadoTemporal(String nombre, String apellidos, String dni){
+        super(nombre, apellidos, dni);
         fechaAlta = LocalDate.of(2024, Month.MARCH, 24);
         fechaBaja = LocalDate.of(2024, Month.SEPTEMBER, 15);
     }

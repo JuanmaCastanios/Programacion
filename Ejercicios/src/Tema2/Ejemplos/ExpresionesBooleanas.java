@@ -1,4 +1,4 @@
-package EjemplosTema2;
+package Tema2.Ejemplos;
 
 // Ejemplo de creación de expresiones booleanas con operadores relacionales
 import java.util.Scanner;

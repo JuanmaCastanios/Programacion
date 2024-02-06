@@ -1,4 +1,4 @@
-package EjerciciosPDFTema2;
+package Tema2.Ejercicios;
 
 public class Intercambio {
     public static void main(String[] args) {

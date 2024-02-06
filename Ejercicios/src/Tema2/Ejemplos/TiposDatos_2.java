@@ -1,4 +1,4 @@
-package EjemplosTema2;
+package Tema2.Ejemplos;
 
 //Ejemplos de asignación entre variables
 
