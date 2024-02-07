@@ -39,14 +39,14 @@ public class EmpleadoFijo extends Empleado{
     }
 
     @Override
-    public void calculoSueldo(Empleado obj){
+    public double calculoSueldo(){
         int aniosContratado = (LocalDate.now().getYear()) - this.anioAlta;
-        this.sueldo = this.salarioBase + (this.complemento * aniosContratado);
+        return this.salarioBase + (this.complemento * aniosContratado);
     }
 
     @Override
     public String toString(){
-        return "Empleado Fijo\nNombre: " + this.nombre + "\nApellidos: " + this.apellidos + "\nDNI: " + this.dni + "\nSueldo: " + this.sueldo + "\nAño de Alta: " + this.anioAlta + "\nComplemento: " + this.complemento;
+        return "Empleado Fijo\nNombre: " + this.nombre + "\nApellidos: " + this.apellidos + "\nDNI: " + this.dni + "\nAño de Alta: " + this.anioAlta + "\nComplemento: " + this.complemento;
     }
 
 }

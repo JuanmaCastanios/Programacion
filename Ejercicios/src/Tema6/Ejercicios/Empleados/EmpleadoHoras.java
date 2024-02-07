@@ -29,12 +29,12 @@ public class EmpleadoHoras extends Empleado{
     }
 
     @Override
-    public void calculoSueldo(Empleado obj){
-        this.sueldo = this.salarioHora * this.horasTrabajadas;
+    public double calculoSueldo(){
+        return this.salarioHora * this.horasTrabajadas;
     }
 
     @Override
     public String toString(){
-        return "Empleado por Horas\nNombre: " + this.nombre + "\nApellidos: " + this.apellidos + "\nDNI: " + this.dni + "\nSueldo: " + sueldo + "\nHoras Trabajadas " + this.horasTrabajadas + "\nSalario por Horas: " + this.salarioHora;
+        return "Empleado por Horas\nNombre: " + this.nombre + "\nApellidos: " + this.apellidos + "\nDNI: " + this.dni + "\nHoras Trabajadas " + this.horasTrabajadas + "\nSalario por Horas: " + this.salarioHora;
     }
 }

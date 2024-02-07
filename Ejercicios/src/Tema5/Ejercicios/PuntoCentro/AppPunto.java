@@ -1,4 +1,4 @@
-package Tema5.Ejercicios;
+package Tema5.Ejercicios.PuntoCentro;
 
 public class AppPunto {
     public static void main(String[] args) {

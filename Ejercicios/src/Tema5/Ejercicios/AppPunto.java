@@ -1,5 +1,6 @@
 package Tema5.Ejercicios;
 
+import Tema5.Ejercicios.Punto.Punto;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Scanner;

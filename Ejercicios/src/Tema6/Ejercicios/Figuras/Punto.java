@@ -1,16 +1,16 @@
-package Tema5.Ejercicios;
+package Tema6.Ejercicios.Figuras;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class PuntoV2 implements Comparable<PuntoV2>{
+public class Punto implements Comparable<Punto>{
     
     //Atributos
     private double x;
     private double y;
 
     //Constructores
-    public PuntoV2(double x, double y){
+    public Punto(double x, double y){
         this.x = x;
         this.y = y;
     }
@@ -25,7 +25,7 @@ public class PuntoV2 implements Comparable<PuntoV2>{
         setY(posicionY);
     }
 
-    public double distanciaDosPuntos(PuntoV2 otro){
+    public double distanciaDosPuntos(Punto otro){
         double distancia = Math.sqrt(Math.pow(otro.x - this.x, 2) + Math.pow(otro.y - this.y, 2));
         return distancia;
     }
@@ -61,12 +61,12 @@ public class PuntoV2 implements Comparable<PuntoV2>{
     
     @Override
     public boolean equals(Object otro){
-        PuntoV2 otroPunto = (PuntoV2) otro;
+        Punto otroPunto = (Punto) otro;
         return (this.x == otroPunto.x) && (this.y == otroPunto.y);
     }
 
     @Override
-    public int compareTo(PuntoV2 otro){
+    public int compareTo(Punto otro){
         //Determinamos el orden "natural" de objetos PuntoV2
         return (int) (this.x - otro.x);
     }

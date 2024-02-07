@@ -1,4 +1,4 @@
-package Tema5.Ejercicios;
+package Tema5.Ejercicios.PuntoCentro;
 
 import java.text.NumberFormat;
 import java.util.Locale;
