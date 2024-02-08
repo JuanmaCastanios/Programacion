@@ -5,7 +5,7 @@ package Tema6.Ejercicios.Ofertas;
  *
  * @author bladiaju
  */
-public class Usuario implements Oferta1, Oferta2{
+public class Usuario implements Operaciones, Oferta1, Oferta2{
     //datos personales 
     protected String nombre;
     protected String apellidos;
@@ -26,5 +26,10 @@ public class Usuario implements Oferta1, Oferta2{
     @Override
     public double calcularOferta2(){
         return 0;
+    }
+    
+    @Override
+    public void reset(){
+        
     }
 }
