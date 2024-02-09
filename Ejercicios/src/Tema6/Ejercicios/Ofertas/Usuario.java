@@ -5,31 +5,18 @@ package Tema6.Ejercicios.Ofertas;
  *
  * @author bladiaju
  */
-public class Usuario implements Operaciones, Oferta1, Oferta2{
+public abstract class Usuario implements Operaciones{
     //datos personales 
+    protected double PRECIOSEGUNDO = 0.02;
     protected String nombre;
     protected String apellidos;
     protected String dni;
+    protected int totalSegundos;
     
     //Constructor
     public Usuario(String nombre, String apellidos, String dni){
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
-    }
-    //Metodos
-    @Override
-    public double calcularOferta1(){
-        return 0;
-    }
-    
-    @Override
-    public double calcularOferta2(){
-        return 0;
-    }
-    
-    @Override
-    public void reset(){
-        
     }
 }
