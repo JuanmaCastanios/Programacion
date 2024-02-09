@@ -1,11 +1,11 @@
 package Tema5.Ejercicios;
 
-import Tema5.Ejercicios.Punto.Punto;
+import Tema5.Ejercicios.Punto;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class AppPunto {
+public class AppPuntoPrueba {
     public static void main(String[] args) {
         Punto p1 = new Punto();
         Punto p2 = new Punto();
