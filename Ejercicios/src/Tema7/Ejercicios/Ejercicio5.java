@@ -1,7 +1,6 @@
 
 package Tema7.Ejercicios;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -15,23 +14,29 @@ public class Ejercicio5 {
         }
     }
     
-    public static void main(String[] args) {
+    public static void colocarNumero(int[] array){
         Random gen = new Random();
-        int[] lista = new int [10];
-        
-        for (int i = 0; i < lista.length; i++) {
-            boolean salir = false;
-            do { 
-                lista[i] = gen.nextInt(1, 11);
-                int num = lista[i];
-                System.out.println(Arrays.binarySearch(lista, num));
-                for (int j = 0; j < 10; j++) {
-                    if(Arrays.binarySearch(lista, num) > 0){
-                        salir = true;
-                    }
-                }
-            } while (salir);
+        int numeroAle;
+        for(int i = 0; i < array.length; i++){
+            do{
+                numeroAle = gen.nextInt(1, 11);
+            }while (comprobarNumero(numeroAle, array));
+            array[i] = numeroAle;
         }
+    }
+    
+    public static boolean comprobarNumero(int num, int[] array){
+        for(int i = 0; i < array.length; i++){        
+            if(array[i] == num){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) {
+        int[] lista = new int [10];
+        colocarNumero(lista);
         imprimirLista(lista);
     }
 }

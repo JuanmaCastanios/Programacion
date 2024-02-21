@@ -9,19 +9,22 @@ public class Ejercicio6 {
         System.out.print("Introduce un numero: ");
         String num = dato.nextLine();
 
-        int[] numero = new int[num.length()];
+        char[] numero = new char[num.length()];
+        
+        numero = num.toCharArray();
+        
+        // Otra manera de separar el numero en un array de enteros
+        // for (int i = 0; i < numero.length; i++) {
+        // numero[i] = Integer.parseInt(num.substring(i, i+1));
+        // }
 
-        for (int i = 0; i < numero.length; i++) {
-            numero[i] = Integer.parseInt(num.substring(i, i+1));
-        }
-
-        int cont = 0;
+        boolean capicua = false;
         for (int i = 0; i < numero.length/2; i++) {    
-            if(numero[i] != numero[(numero.length-1) - i]){
-                cont += 1;
+            if(numero[i] == numero[(numero.length-1) - i]){
+                capicua = true;
             }
         }
-        if(cont != 0){
+        if(!capicua){
             System.out.println("No es capicua");
         }
         else{
