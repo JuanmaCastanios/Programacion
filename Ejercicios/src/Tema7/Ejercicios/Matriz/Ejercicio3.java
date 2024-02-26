@@ -14,14 +14,9 @@ public class Ejercicio3 {
         Random gen = new Random();
         int filas = matriz.length;
         int columnas = matriz[0].length;
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                if(i%2 == 0){
-                    matriz[i][j] = gen.nextInt(1,101);
-                }
-                else{
-                    matriz[i][j] = gen.nextInt(1,101);
-                }
+        for (int i = 0; i < filas; i++){
+            for (int j = 0; j < columnas; j++){
+                matriz[i][j] = gen.nextInt(1,101);
             }
         }
     }
