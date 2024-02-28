@@ -26,12 +26,7 @@ public class Ejercicio3 {
         int columnas = matriz[0].length;
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                if(i%2 == 0){
-                    System.out.print(matriz[i][j] + " ");
-                }
-                else{
-                    System.out.print(matriz[i][j] + " ");
-                }
+                System.out.print(matriz[i][j] + " ");
             }
             System.out.println();
         }
@@ -58,13 +53,7 @@ public class Ejercicio3 {
     }
      
     public static void main(String[] args) {
-        Scanner dato = new Scanner(System.in);
-        
-        System.out.print("Introduce el numero de filas: ");
-        int fila = dato.nextInt();
-        System.out.print("Introduce el numero de columnas: ");
-        int columna = dato.nextInt();
-        int[][] matriz = new int[fila][columna];
+        int[][] matriz = new int[4][5];
         
         rellenarMatriz(matriz);
         imprimirMatriz(matriz);
