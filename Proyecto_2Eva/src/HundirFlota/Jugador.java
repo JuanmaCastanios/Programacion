@@ -67,13 +67,13 @@ public class Jugador {
     }
     
     /**
-     * disparo realizara el disparo a una casilla
-     * @param d Cadena de coordenadas donde se dispara
+     * impacto recibe el disparo a una casilla
+     * @param i Cadena de coordenadas donde se dispara
      */
-    public void disparo(String d){
-        if(d.length()==2){
-            char letra=d.substring(0,1).charAt(0);
-            int num=Integer.parseInt(d.substring(1));
+    public void impacto(String i){
+        if(i.length()==2){
+            char letra=i.substring(0,1).charAt(0);
+            int num=Integer.parseInt(i.substring(1));
             char cas;
             switch (letra){
                 case 'A':
@@ -107,10 +107,17 @@ public class Jugador {
                     cas=tab[9][num];
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Error. Coordenadas mal introducidad", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error. Coordenadas mal introducidas", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Error. Longitud de coordenada inexistente", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
+        
+    }
+    
+    public String disparo(String d){
+        return d;
     }
     
     /**
@@ -119,8 +126,9 @@ public class Jugador {
      */
     @Override
     public String toString() {
-        String tablero = "";
+        String tablero = "  A B C D E F G H I J\n";
         for (int i = 0; i < tab.length; i++) {
+            tablero = tablero + i + " ";
             for (int j = 0; j < 10; j++) {
                 tablero = tablero + tab[i][j] + " ";
             }
