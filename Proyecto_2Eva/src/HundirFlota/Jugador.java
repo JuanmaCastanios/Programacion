@@ -1,43 +1,63 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package ejemplo;
+
+package HundirFlota;
 
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author fuehered
+ * @author Juan Jose Blanco y Eduardo de la Fuente
+ * @version 1.0
+ * @since 11-03-2024
  */
 public class Jugador {
+    
+    //Atributos
+    private String nick; //Nombre del jugador
+    private char[][] tab; //Matriz que representa el tablero del jugador
 
-    private String nick;
-    private char[][] tab;
-
+    //Constructor
     public Jugador(String nick) {
         this.nick = nick;
         this.tab = new char[10][10];
         llenarTablero();
     }
-
+    
+    /**
+     * getNick muestra el nombre del jugador
+     * @return Nombre jugador
+     */
     public String getNick() {
         return nick;
     }
-
+    
+    /**
+     * getTab muestra el tablero del jugador
+     * @return Tablero jugador
+     */
     public char[][] getTab() {
         return tab;
     }
-
+    
+    /**
+     * setNick asigna un nombre al objeto jugador
+     * @param nick Nombre del jugador
+     */
     public void setNick(String nick) {
         this.nick = nick;
     }
-
+    
+    /**
+     * setTab asigna un tablero al objeto jugador
+     * @param tab Tablero del jugador
+     */
     public void setTab(char[][] tab) {
         this.tab = tab;
     }
-
+    
+    /**
+     * llenarTablero rellena el tablero con el caracter 'A'
+     */
     public void llenarTablero() {
 
         for (int i = 0; i < tab.length; i++) {
@@ -46,6 +66,10 @@ public class Jugador {
 
     }
     
+    /**
+     * disparo realizara el disparo a una casilla
+     * @param d Cadena de coordenadas donde se dispara
+     */
     public void disparo(String d){
         if(d.length()==2){
             char letra=d.substring(0,1).charAt(0);
@@ -88,7 +112,11 @@ public class Jugador {
         }
         
     }
-
+    
+    /**
+     * toString muestra el tablero acumulandolo en una cadena
+     * @return 
+     */
     @Override
     public String toString() {
         String tablero = "";
