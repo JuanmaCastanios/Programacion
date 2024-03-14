@@ -70,11 +70,11 @@ public class Jugador {
      * disparo realiza el disparo a una casilla
      * @param i Cadena de coordenadas donde se dispara
      */
-    public void disparo(String i){
+    public char impacto(String i){
+        char cas = 'e';
         if(i.length()==2){
             char letra=i.substring(0,1).charAt(0);
             int num=Integer.parseInt(i.substring(1));
-            char cas;
             switch (letra){
                 case 'A':
                     cas=tab[0][num];
@@ -109,14 +109,15 @@ public class Jugador {
                 default:
                     JOptionPane.showMessageDialog(null, "Error. Coordenadas mal introducidas", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
         }else{
             JOptionPane.showMessageDialog(null, "Error. Longitud de coordenada inexistente", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        
+        return cas;
     }
     
-    public void resolverDisparo(char casilla){
+    public void disparar(char casilla){
         
     }
     

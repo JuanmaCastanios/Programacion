@@ -202,6 +202,9 @@ public class GUIEjemplo extends javax.swing.JFrame {
                 }
                 barco.setPosicion(new Coordenadas(array));
             }
+            else{
+                
+            }
         }
     }
     
