@@ -67,10 +67,10 @@ public class Jugador {
     }
     
     /**
-     * impacto recibe el disparo a una casilla
+     * disparo realiza el disparo a una casilla
      * @param i Cadena de coordenadas donde se dispara
      */
-    public void impacto(String i){
+    public void disparo(String i){
         if(i.length()==2){
             char letra=i.substring(0,1).charAt(0);
             int num=Integer.parseInt(i.substring(1));
@@ -116,8 +116,8 @@ public class Jugador {
         
     }
     
-    public String disparo(String d){
-        return d;
+    public void resolverDisparo(char casilla){
+        
     }
     
     /**

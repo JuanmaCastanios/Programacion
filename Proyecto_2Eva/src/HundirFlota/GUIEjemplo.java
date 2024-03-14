@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package HundirFlota;
 
 import java.util.ArrayList;
@@ -115,13 +112,12 @@ public class GUIEjemplo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(220, 220, 220))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(301, 301, 301)
+                        .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -131,10 +127,10 @@ public class GUIEjemplo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jButton2)
-                .addGap(9, 9, 9)
-                .addComponent(jButton1)
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -154,42 +150,59 @@ public class GUIEjemplo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         j1= new Jugador(JOptionPane.showInputDialog("Introduce el nick:"));
         this.jLabelNIckJ1.setText(j1.getNick());
-        this.jTextAreaJ1.setText(j1.toString());
         Barco barco;
-        for (int i = 1; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             switch (i) {
-                case 1:
-                    barco=new Barco("portaviones", 5);
-                    barco.setPosicion(posicion);
+                case 0:{
+                    barco=new Barco("Portaviones", 5);
+                    asignarPosicion(barco);
                     b1.add(barco);
-                    
-                    break;
+                }break;
+                case 1:{
+                    barco=new Barco("Buque", 3);
+                    asignarPosicion(barco);
+                    b1.add(barco);
+                }break;
+                case 2:{
+                    barco=new Barco("Submarino", 2);
+                    asignarPosicion(barco);
+                    b1.add(barco);
+                }break;
+                case 3:{
+                    barco=new Barco("Lancha", 1);
+                    asignarPosicion(barco);
+                    b1.add(barco);
+                }break;
                 default:
                     throw new AssertionError();
             }
         }
-        
+        this.jTextAreaJ1.setText(j1.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void asignarPosicion(int i){
-        String ini=JOptionPane.showInputDialog("Posicion Inicial del " + b1.get(i).getNombre());
-        String fin=JOptionPane.showInputDialog("Posicion Final del " + b1.get(i).getNombre());
+    public void asignarPosicion(Barco barco){
+        String ini=JOptionPane.showInputDialog("Posicion Inicial del " + barco.getNombre());
+        String fin=JOptionPane.showInputDialog("Posicion Final del " + barco.getNombre());
         
         if(ini.length()==2 && ini.length()==2){
-            char xini=ini.charAt(0);
+            char xini=ini.toUpperCase().charAt(0);
             int yini=Integer.parseInt(ini.substring(1));
-            char xfin=fin.charAt(0);
+            char xfin=fin.toUpperCase().charAt(0);
             int yfin=Integer.parseInt(fin.substring(1));
-            if(xfin==xini){
-                for (int j = yini; j < yfin; j++) {
-                    
+            if(xini==xfin){
+                String array[]= new String[barco.getLongitud()];
+                for (int j = 0; j <= (yfin-yini); j++) {
+                    array[j] = String.valueOf(xini) + String.valueOf((yini+j));
                 }
+                barco.setPosicion(new Coordenadas(array));
             }else if(yfin==yini){
-                
+                String array[]= new String[barco.getLongitud()];
+                for (int j = 0; j <= (xfin-xini); j++) {
+                    array[j] = String.valueOf((char)(xini + j)) + String.valueOf((yini));
+                }
+                barco.setPosicion(new Coordenadas(array));
             }
         }
-        b1.get(i).setPosicion(posicion);
-        
     }
     
     /**

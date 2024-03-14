@@ -19,9 +19,6 @@ public class Coordenadas implements Comparable<Coordenadas> {
         this.cord = cord;      
     }
     
-    public Coordenadas() {
-    }
-    
     //Metodos
     
     /**
