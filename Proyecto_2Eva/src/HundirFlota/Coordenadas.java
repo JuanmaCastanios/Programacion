@@ -77,11 +77,11 @@ public class Coordenadas implements Comparable<Coordenadas> {
         for (int i = 0; i < this.cord.length; i++) {
             for (int j = 0; j < o.cord.length; j++) {
                 if (this.cord[i].equals(o.cord[j])) {
-                    return 0;
+                    return 1;
                 }
             }
         }
-        return 1;
+        return 0;
     }
 
 }

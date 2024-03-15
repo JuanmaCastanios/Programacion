@@ -1,7 +1,7 @@
-
 package HundirFlota;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,14 +14,15 @@ public class GUIEjemplo extends javax.swing.JFrame {
     private Jugador j2;
     private ArrayList<Barco> b1;
     private ArrayList<Barco> b2;
-    
+
     /**
      * Creates new form GUIEjemplo
      */
     public GUIEjemplo() {
         initComponents();
-        b1=new ArrayList<>();
-        b2=new ArrayList<>();
+
+        b1 = new ArrayList<>();
+        b2 = new ArrayList<>();
     }
 
     /**
@@ -33,179 +34,509 @@ public class GUIEjemplo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaJ1 = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaJ2 = new javax.swing.JTextArea();
-        jLabelNickJ2 = new javax.swing.JLabel();
-        jLabelNIckJ1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tablero2 = new javax.swing.JTextArea();
+        NickJ2 = new javax.swing.JLabel();
+        NickJ1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablero1 = new javax.swing.JTextArea();
+        numImpactos2 = new javax.swing.JLabel();
+        numImpactos1 = new javax.swing.JLabel();
+        btnJugador1 = new javax.swing.JButton();
+        btnJugador2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        coordDisparo1 = new javax.swing.JTextField();
+        btnDisparo1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        coordDisparo2 = new javax.swing.JTextField();
+        btnDisparo2 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+
+        jLabel2.setText("Coordenada de disparo:");
+
+        jButton4.setText("Disparar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jTextAreaJ1.setEditable(false);
-        jTextAreaJ1.setColumns(20);
-        jTextAreaJ1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jTextAreaJ1.setRows(5);
-        jTextAreaJ1.setAutoscrolls(false);
-        jScrollPane2.setViewportView(jTextAreaJ1);
+        tablero2.setEditable(false);
+        tablero2.setColumns(20);
+        tablero2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tablero2.setRows(5);
+        tablero2.setAutoscrolls(false);
+        jScrollPane2.setViewportView(tablero2);
 
-        jTextAreaJ2.setEditable(false);
-        jTextAreaJ2.setColumns(20);
-        jTextAreaJ2.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaJ2);
+        tablero1.setEditable(false);
+        tablero1.setColumns(20);
+        tablero1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tablero1.setRows(5);
+        tablero1.setAutoscrolls(false);
+        jScrollPane4.setViewportView(tablero1);
+
+        numImpactos1.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabelNIckJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelNickJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addGap(36, 36, 36)
+                .addComponent(NickJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(numImpactos1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(NickJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(numImpactos2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(592, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelNickJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNIckJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(NickJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NickJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numImpactos2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numImpactos1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(48, 48, 48)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(92, Short.MAX_VALUE)))
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
-            }
-        });
-
-        jButton1.setText("Jugador 1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnJugador1.setText("Jugador 1");
+        btnJugador1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnJugador1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Jugador 2");
+        btnJugador2.setText("Jugador 2");
+        btnJugador2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnJugador2MouseClicked(evt);
+            }
+        });
+        btnJugador2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugador2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Coordenada de disparo:");
+
+        coordDisparo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                coordDisparo1ActionPerformed(evt);
+            }
+        });
+
+        btnDisparo1.setText("Disparar");
+        btnDisparo1.setEnabled(false);
+        btnDisparo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDisparo1MouseClicked(evt);
+            }
+        });
+        btnDisparo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDisparo1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Coordenada de disparo:");
+
+        coordDisparo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                coordDisparo2MouseClicked(evt);
+            }
+        });
+        coordDisparo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                coordDisparo2ActionPerformed(evt);
+            }
+        });
+
+        btnDisparo2.setText("Disparar");
+        btnDisparo2.setEnabled(false);
+        btnDisparo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDisparo2ActionPerformed(evt);
+            }
+        });
+
+        btnReset.setText("Reiniciar");
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(301, 301, 301)
-                        .addComponent(jButton2))
+                        .addGap(60, 60, 60)
+                        .addComponent(btnJugador1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(coordDisparo1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDisparo1)
+                        .addGap(162, 162, 162)
+                        .addComponent(btnJugador2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(coordDisparo2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDisparo2))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(487, 487, 487)
+                        .addComponent(btnReset)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnJugador1)
+                            .addComponent(jLabel1)
+                            .addComponent(coordDisparo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDisparo1))
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnReset)
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnJugador2)
+                            .addComponent(jLabel3)
+                            .addComponent(coordDisparo2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDisparo2))
+                        .addGap(32, 32, 32)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        this.jComboBox1.getSelectedItem();
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    private void btnJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugador1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        j1= new Jugador(JOptionPane.showInputDialog("Introduce el nick:"));
-        this.jLabelNIckJ1.setText(j1.getNick());
-        Barco barco;
-        for (int i = 0; i < 4; i++) {
-            switch (i) {
-                case 0:{
-                    barco=new Barco("Portaviones", 5);
-                    asignarPosicion(barco);
-                    b1.add(barco);
-                }break;
-                case 1:{
-                    barco=new Barco("Buque", 3);
-                    asignarPosicion(barco);
-                    b1.add(barco);
-                }break;
-                case 2:{
-                    barco=new Barco("Submarino", 2);
-                    asignarPosicion(barco);
-                    b1.add(barco);
-                }break;
-                case 3:{
-                    barco=new Barco("Lancha", 1);
-                    asignarPosicion(barco);
-                    b1.add(barco);
-                }break;
-                default:
-                    throw new AssertionError();
+        try {
+            j1 = new Jugador(JOptionPane.showInputDialog("Introduce el nick:"));
+            this.NickJ1.setText("Jugador 1: " + j1.getNick());
+            this.tablero1.setText(j1.toString());
+            Barco barco;
+            for (int i = 0; i < 4; i++) {
+                switch (i) {
+                    case 0: {
+                        barco = new Barco("Portaviones", 5);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
+                        b1.add(barco);
+                    }
+                    break;
+                    case 1: {
+                        barco = new Barco("Buque", 3);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
+                        b1.add(barco);
+                    }
+                    break;
+                    case 2: {
+                        barco = new Barco("Submarino", 2);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
+                        b1.add(barco);
+                    }
+                    break;
+                    case 3: {
+                        barco = new Barco("Lancha", 1);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
+                        b1.add(barco);
+                    }
+                    break;
+                    default:
+                        throw new AssertionError();
+                }
             }
-        }
-        this.jTextAreaJ1.setText(j1.toString());
-    }//GEN-LAST:event_jButton1ActionPerformed
+            numImpactos1.setText("Impactos: " + String.valueOf(j1.getImpactos()));
+            btnDisparo1.setEnabled(true);
+            btnJugador1.setEnabled(false);
+        } catch (NullPointerException error1) {
+        } 
+    }//GEN-LAST:event_btnJugador1ActionPerformed
 
-    public void asignarPosicion(Barco barco){
-        String ini=JOptionPane.showInputDialog("Posicion Inicial del " + barco.getNombre());
-        String fin=JOptionPane.showInputDialog("Posicion Final del " + barco.getNombre());
+    private void btnJugador2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJugador2MouseClicked
+
+        try {
+            j2 = new Jugador(JOptionPane.showInputDialog("Introduce el nick:"));
+            this.NickJ2.setText("Jugador 2: " + j2.getNick());
+            this.tablero2.setText(j2.toString());
+            Barco barco;
+            for (int i = 0; i < 4; i++) {
+                switch (i) {
+                    case 0: {
+                        barco = new Barco("Portaviones", 5);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
+                        b2.add(barco);
+                    }
+                    break;
+                    case 1: {
+                        barco = new Barco("Buque", 3);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
+                        b2.add(barco);
+                    }
+                    break;
+                    case 2: {
+                        barco = new Barco("Submarino", 2);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
+                        b2.add(barco);
+                    }
+                    break;
+                    case 3: {
+                        barco = new Barco("Lancha", 1);
+                        do {
+                            asignarPosicion(barco);
+                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
+                        b2.add(barco);
+                    }
+                    break;
+                }
+            }
+            numImpactos2.setText("Impactos: " + String.valueOf(j2.getImpactos()));
+            btnJugador2.setEnabled(false);
+        } catch (NullPointerException error1) {
+        }
+    }//GEN-LAST:event_btnJugador2MouseClicked
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        try {
+            btnDisparo1.setEnabled(false);
+            btnDisparo2.setEnabled(false);
+            btnJugador1.setEnabled(true);
+            btnJugador2.setEnabled(true);
+            b1.clear();
+            b2.clear();
+            tablero1.setText("");
+            tablero2.setText("");
+            j1.llenarTablero();
+            j2.llenarTablero();
+            coordDisparo1.setText("");
+            coordDisparo2.setText("");
+            NickJ1.setText("");
+            NickJ2.setText("");
+            numImpactos1.setText("");
+            numImpactos2.setText("");
+        } catch (NullPointerException e) {
+        }
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void btnDisparo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisparo1MouseClicked
+
+    }//GEN-LAST:event_btnDisparo1MouseClicked
+
+    private void coordDisparo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coordDisparo2MouseClicked
+
+    }//GEN-LAST:event_coordDisparo2MouseClicked
+
+    private void btnDisparo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisparo1ActionPerformed
+        String disp = j1.disparo(coordDisparo1.getText().toUpperCase());
+        disparar(j2, b2, disp);
+        numImpactos2.setText("Impactos: " + String.valueOf(j2.getImpactos()));
+        tablero2.setText(j2.toString());
+        coordDisparo1.setText("");
+        btnDisparo1.setEnabled(false);
+        btnDisparo2.setEnabled(true);
         
-        if(ini.length()==2 && ini.length()==2){
-            char xini=ini.toUpperCase().charAt(0);
-            int yini=Integer.parseInt(ini.substring(1));
-            char xfin=fin.toUpperCase().charAt(0);
-            int yfin=Integer.parseInt(fin.substring(1));
-            if(xini==xfin){
-                String array[]= new String[barco.getLongitud()];
-                for (int j = 0; j <= (yfin-yini); j++) {
-                    array[j] = String.valueOf(xini) + String.valueOf((yini+j));
+    }//GEN-LAST:event_btnDisparo1ActionPerformed
+
+    private void btnDisparo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisparo2ActionPerformed
+
+        String disp = j2.disparo(coordDisparo2.getText().toUpperCase());
+        disparar(j1, b1, disp);
+        numImpactos1.setText("Impactos: " + String.valueOf(j2.getImpactos()));
+        tablero1.setText(j1.toString());
+        coordDisparo2.setText("");
+        btnDisparo2.setEnabled(false);
+        btnDisparo1.setEnabled(true);
+    }//GEN-LAST:event_btnDisparo2ActionPerformed
+
+    private void coordDisparo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coordDisparo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_coordDisparo1ActionPerformed
+
+    private void coordDisparo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coordDisparo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_coordDisparo2ActionPerformed
+
+    private void btnJugador2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugador2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnJugador2ActionPerformed
+
+    public void asignarPosicion(Barco barco) {
+        boolean error;
+        if (barco.getLongitud() == 1) {
+            do {
+                error = false;
+                String posicion = JOptionPane.showInputDialog("Posicion Inicial de " + barco.getNombre() + ".Tamaño = " + barco.getLongitud());
+                if (posicion.length() == 2) {
+                    String cord[] = new String[barco.getLongitud()];
+                    cord[0] = String.valueOf(posicion.toUpperCase());
+                    barco.setPosicion(new Coordenadas(cord));
+                } else {
+                    //posicion invalida
+                    JOptionPane.showMessageDialog(null, "ERROR.Posicion invalida.", "ERROR", 2);
+                    error = true;
                 }
-                barco.setPosicion(new Coordenadas(array));
-            }else if(yfin==yini){
-                String array[]= new String[barco.getLongitud()];
-                for (int j = 0; j <= (xfin-xini); j++) {
-                    array[j] = String.valueOf((char)(xini + j)) + String.valueOf((yini));
+            } while (error);
+        } else {
+            do {
+                error = false;
+                String posInicial = JOptionPane.showInputDialog("Posicion Inicial de " + barco.getNombre() + ".Tamaño = " + barco.getLongitud());
+                String posFinal = JOptionPane.showInputDialog("Posicion Final de " + barco.getNombre() + ".Tamaño = " + barco.getLongitud());
+
+                if (posInicial.length() == 2 && posInicial.length() == 2) {
+                    char xini = posInicial.toUpperCase().charAt(0);
+                    int yini = Integer.parseInt(posInicial.substring(1));
+                    char xfin = posFinal.toUpperCase().charAt(0);
+                    int yfin = Integer.parseInt(posFinal.substring(1));
+                    String cord[] = new String[barco.getLongitud()];
+                    if (Math.abs(xfin - (xini - 1)) == barco.getLongitud() || Math.abs(yfin - (yini - 1)) == barco.getLongitud()) {
+                        if (xini == xfin) {
+                            for (int j = 0; j <= (yfin - yini); j++) {
+                                cord[j] = String.valueOf(xini) + String.valueOf((yini + j));
+                            }
+                            barco.setPosicion(new Coordenadas(cord));
+                        } else if (yfin == yini) {
+                            for (int j = 0; j <= (xfin - xini); j++) {
+                                cord[j] = String.valueOf((char) (xini + j)) + String.valueOf((yini));
+                            }
+                            barco.setPosicion(new Coordenadas(cord));
+                        } else {
+                            //Error en diagonal
+                            JOptionPane.showMessageDialog(null, "ERROR.No se admiten posiciones en diagonal.", "ERROR", 2);
+                            error = true;
+                        }
+                    } else {
+                        //Error tamaño invalido
+                        JOptionPane.showMessageDialog(null, "ERROR.Las coordenadas no cumplen con el tamaño del barco.", "ERROR", 2);
+                        error = true;
+                    }
+                } else {
+                    //posicion invalida
+                    JOptionPane.showMessageDialog(null, "ERROR.Posicion invalida.", "ERROR", 2);
+                    error = true;
                 }
-                barco.setPosicion(new Coordenadas(array));
-            }
-            else{
-                
+            } while (error);
+        }
+    }
+
+    public void disparar(Jugador oponente, ArrayList<Barco> barcos, String disparo) {
+        char coord = oponente.impacto(disparo);
+        boolean pos = false;
+        switch (coord) {
+            case 'A':
+                for (int i = 0; i < barcos.size(); i++) {
+                    String posBarco[] = barcos.get(i).getPosicion().getCord();
+                    for (int j = 0; j < posBarco.length; j++) {
+                        if (disparo.equals(posBarco[j])) {
+                            pos = true;
+                        }
+                    }
+                }
+                if (pos) {
+                    oponente.cambiarPosicion(disparo, 'O');
+                    oponente.setImpactos(oponente.getImpactos() + 1);
+                    if(oponente.getImpactos() == 11){
+                        JOptionPane.showMessageDialog(null, oponente.getNick() + " ha perdido", "FINAL", 1);
+                        btnDisparo1.setEnabled(false);
+                        btnDisparo2.setEnabled(false);
+                    }
+                } else {
+                    oponente.cambiarPosicion(disparo, 'X');
+                }
+                break;
+            case 'O':
+                JOptionPane.showMessageDialog(null, "Posicion ya elegida.", "ERROR", 1);
+                break;
+            case 'X':
+                JOptionPane.showMessageDialog(null, "Posicion ya elegida.", "ERROR", 1);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+    
+    public boolean validacionOcupado(Barco barco, ArrayList<Barco> barcos){
+        for (int i = 0; i < barcos.size(); i++) {
+            if(barco.getPosicion().compareTo(barcos.get(i).getPosicion()) == 1){
+                JOptionPane.showMessageDialog(null, "ERROR.Posicion ocupada.", "ERROR", 2); 
+                return true;
             }
         }
+        return false;
+    }
+    
+    public boolean validacionContiguo(Barco barco, ArrayList<Barco> barcos){
+        try {
+            String coord [] = barco.getPosicion().getCord();
+            for (int i = 0; i < coord.length; i++) {
+                char letra = coord[i].toUpperCase().charAt(0);
+                int num = Integer.parseInt(coord[i].substring(1));
+                String array [] = {String.valueOf((char)(letra - 1)) + num, String.valueOf((char)(letra + 1)) + num, letra + String.valueOf(num - 1), letra + String.valueOf(num + 1)};
+                for (int j = 0; j < barcos.size(); j++) {
+                    if(barcos.get(j).getPosicion().compareTo(new Coordenadas(array)) == 1){
+                        JOptionPane.showMessageDialog(null, "ERROR.Posicion contigua.", "ERROR", 2); 
+                        return true;
+                    }
+                }
+            }
+        } catch (NullPointerException e) {
+        }
+        return false;
     }
     
     /**
@@ -244,15 +575,26 @@ public class GUIEjemplo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabelNIckJ1;
-    private javax.swing.JLabel jLabelNickJ2;
+    private javax.swing.JLabel NickJ1;
+    private javax.swing.JLabel NickJ2;
+    private javax.swing.JButton btnDisparo1;
+    private javax.swing.JButton btnDisparo2;
+    private javax.swing.JButton btnJugador1;
+    private javax.swing.JButton btnJugador2;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JTextField coordDisparo1;
+    private javax.swing.JTextField coordDisparo2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextAreaJ1;
-    private javax.swing.JTextArea jTextAreaJ2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel numImpactos1;
+    private javax.swing.JLabel numImpactos2;
+    private javax.swing.JTextArea tablero1;
+    private javax.swing.JTextArea tablero2;
     // End of variables declaration//GEN-END:variables
 }
