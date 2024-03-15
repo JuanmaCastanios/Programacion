@@ -46,26 +46,6 @@ public class Coordenadas implements Comparable<Coordenadas> {
         return Arrays.toString(cord);
     }
     
-    /**
-     * equals metodo sobreescrito en el que comparamos los arrays de coordenadas
-     * de manera rapida para saber si son idénticas
-     * @param obj Coordenadas de otro barco a comparar
-     * @return Boleano verificando si son o no iguales
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Coordenadas other = (Coordenadas) obj;
-        return Arrays.deepEquals(this.cord, other.cord);
-    }
     
     /**
      * compareTo metodo sobreescrito que 

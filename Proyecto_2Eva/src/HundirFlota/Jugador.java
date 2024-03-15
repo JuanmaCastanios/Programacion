@@ -14,7 +14,7 @@ public class Jugador {
     //Atributos
     private String nick; //Nombre del jugador
     private char[][] tab; //Matriz que representa el tablero del jugador
-    private int impactos = 0; 
+    private int impactos = 0; //Numero de impactos recibidos
 
     //Constructor
     public Jugador(String nick) {
@@ -58,73 +58,88 @@ public class Jugador {
     public void setTab(char[][] tab) {
         this.tab = tab;
     }
-
+    
+    /**
+     * getImpactos muestra el numero de impactos
+     * @return Numero impactos
+     */
     public int getImpactos() {
         return impactos;
     }
-
+    
+    /**
+     * setImpactos asigna un numero de impactos al objeto jugador
+     * @param impactos Numero impactos
+     */
     public void setImpactos(int impactos) {
         this.impactos = impactos;
     }
     
     /**
-     * llenarTablero rellena el tablero con el caracter 'A'
+     * llenarTablero rellena el tablero con el caracter 'A'.
      */
     public void llenarTablero() {
         for (int i = 0; i < tab.length; i++) {
-            Arrays.fill(tab[i], 'A');
+            Arrays.fill(tab[i], 'A'); //'A' representa agua
         }
 
     }
-
-    public void cambiarPosicion(String coord, char resultado) {
-        char letra = coord.toUpperCase().charAt(0);
-        int num = Integer.parseInt(coord.substring(1));
-        this.tab[num][letra - 65] = resultado;
+    /**
+     * cambiarCasilla cambia el caracter si ha acertado o fallado el disparo en la coordenada indicada.
+     * @param coord Coordenada de disparo
+     * @param resultado caracter a asignar
+     */
+    public void cambiarCasilla(String coord, char resultado) {
+        char letra = coord.toUpperCase().charAt(0); //Obtenemos la letra de las coordenadas
+        int num = Integer.parseInt(coord.substring(1)); //Obtenemos el numero de las coordenadas
+        this.tab[num][letra - 65] = resultado; //Asigna el resultado dependiendo si ha acertado o fallado la posicion del disparo
     }
 
     /**
-     * disparo realiza el disparo a una casilla
+     * impacto realiza el disparo a una casilla
      *
      * @param i Cadena de coordenadas donde se dispara
      */
     public char impacto(String i) {
         char cas = 'e';
+        //Si no es de longitud 2, lo tratamos como un error
         if (i.length() == 2) {
-            char letra = i.substring(0, 1).charAt(0);
-            int num = Integer.parseInt(i.substring(1));
+            char letra = i.substring(0, 1).charAt(0); //Obtenemos la letra de las coordenadas
+            int num = Integer.parseInt(i.substring(1)); //Obtenemos el numero de las coordenadas
+            //Dependiendo de que letra sea, se elige iuna casilla del tablero
             switch (letra) {
                 case 'A':
-                    cas = tab[0][num];
+                    cas = tab[num][0];
                     break;
                 case 'B':
-                    cas = tab[1][num];
+                    cas = tab[num][1];
                     break;
                 case 'C':
-                    cas = tab[2][num];
+                    cas = tab[num][2];
                     break;
                 case 'D':
-                    cas = tab[3][num];
+                    cas = tab[num][3];
                     break;
                 case 'E':
-                    cas = tab[4][num];
+                    cas = tab[num][4];
                     break;
                 case 'F':
-                    cas = tab[5][num];
+                    cas = tab[num][5];
                     break;
                 case 'G':
-                    cas = tab[6][num];
+                    cas = tab[num][6];
                     break;
                 case 'H':
-                    cas = tab[7][num];
+                    cas = tab[num][7];
                     break;
                 case 'I':
-                    cas = tab[8][num];
+                    cas = tab[num][8];
                     break;
                 case 'J':
-                    cas = tab[9][num];
+                    cas = tab[num][9];
                     break;
                 default:
+                    //Si esa letra no esta, se trata como un error
                     JOptionPane.showMessageDialog(null, "Error. Coordenadas mal introducidas", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -133,7 +148,12 @@ public class Jugador {
         }
         return cas;
     }
-
+    
+    /**
+     * disparo recoge la casilla donde dispara el jugador.
+     * @param coord Coordenada donde se dispara
+     * @return Coordenada donde se dispara
+     */
     public String disparo(String coord) {
         return coord;
     }

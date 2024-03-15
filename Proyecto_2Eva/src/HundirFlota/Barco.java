@@ -9,6 +9,7 @@ package HundirFlota;
  */
 public class Barco {
     
+    
     //Atributos
     private String nombre; //Nombre del barco
     private int longitud; //Tamaño del barco

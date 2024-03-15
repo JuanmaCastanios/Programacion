@@ -1,7 +1,6 @@
 package HundirFlota;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -10,8 +9,10 @@ import javax.swing.JOptionPane;
  */
 public class GUIEjemplo extends javax.swing.JFrame {
 
+    //Icializacion jugadores
     private Jugador j1;
     private Jugador j2;
+    //Inicializacion arrays que almacena los barcos de los jugadores
     private ArrayList<Barco> b1;
     private ArrayList<Barco> b2;
 
@@ -20,7 +21,7 @@ public class GUIEjemplo extends javax.swing.JFrame {
      */
     public GUIEjemplo() {
         initComponents();
-
+        //Declaracion arrays que almacena los barcos de los jugadores
         b1 = new ArrayList<>();
         b2 = new ArrayList<>();
     }
@@ -252,55 +253,65 @@ public class GUIEjemplo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugador1ActionPerformed
-
+        
         try {
             j1 = new Jugador(JOptionPane.showInputDialog("Introduce el nick:"));
-            this.NickJ1.setText("Jugador 1: " + j1.getNick());
-            this.tablero1.setText(j1.toString());
+            this.NickJ1.setText("Jugador 1: " + j1.getNick()); //Muestra el nombre del jugador
+            this.tablero1.setText(j1.toString()); //Muestra el tablero
             Barco barco;
             for (int i = 0; i < 4; i++) {
+                //Pasamos por todos los tipos de barco
                 switch (i) {
+                    //Crea portaviones
                     case 0: {
                         barco = new Barco("Portaviones", 5);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
-                        b1.add(barco);
+                        } while (validacionOcupado(barco, b1) || validacionContiguo(barco, b1));
+                        b1.add(barco); //Añadimos al array de los barcos
                     }
                     break;
+                    //Crea buque
                     case 1: {
                         barco = new Barco("Buque", 3);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
-                        b1.add(barco);
+                        } while (validacionOcupado(barco, b1) || validacionContiguo(barco, b1));
+                        b1.add(barco); //Añadimos al array de los barcos
                     }
                     break;
+                    //Crea submarino
                     case 2: {
                         barco = new Barco("Submarino", 2);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
-                        b1.add(barco);
+                        } while (validacionOcupado(barco, b1) || validacionContiguo(barco, b1));
+                        b1.add(barco); //Añadimos al array de los barcos
                     }
                     break;
+                    //Crea lancha
                     case 3: {
                         barco = new Barco("Lancha", 1);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b1) || validacionContiguo(barco,b1));
-                        b1.add(barco);
+                        } while (validacionOcupado(barco, b1) || validacionContiguo(barco, b1));
+                        b1.add(barco); //Añadimos al array de los barcos
                     }
                     break;
                     default:
                         throw new AssertionError();
                 }
             }
+            // Actualiza impactos
             numImpactos1.setText("Impactos: " + String.valueOf(j1.getImpactos()));
             btnDisparo1.setEnabled(true);
             btnJugador1.setEnabled(false);
         } catch (NullPointerException error1) {
-        } 
+        }
     }//GEN-LAST:event_btnJugador1ActionPerformed
 
     private void btnJugador2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJugador2MouseClicked
@@ -312,40 +323,49 @@ public class GUIEjemplo extends javax.swing.JFrame {
             Barco barco;
             for (int i = 0; i < 4; i++) {
                 switch (i) {
+                    //Crea portaviones
                     case 0: {
                         barco = new Barco("Portaviones", 5);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
-                        b2.add(barco);
+                        } while (validacionOcupado(barco, b2) || validacionContiguo(barco, b2));
+                        b2.add(barco); //Añadimos al array de los barcos
                     }
                     break;
+                    //Crea buque
                     case 1: {
                         barco = new Barco("Buque", 3);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
-                        b2.add(barco);
+                        } while (validacionOcupado(barco, b2) || validacionContiguo(barco, b2));
+                        b2.add(barco); //Añadimos al array de los barcos
                     }
                     break;
+                    //Crea submarino
                     case 2: {
                         barco = new Barco("Submarino", 2);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
-                        b2.add(barco);
+                        } while (validacionOcupado(barco, b2) || validacionContiguo(barco, b2));
+                        b2.add(barco); //Añadimos al array de los barcos
                     }
                     break;
+                    //Crea lancha
                     case 3: {
                         barco = new Barco("Lancha", 1);
+                        //Validamos si no hay barcos contiguos y no hay barcos en la posicion establecida
                         do {
                             asignarPosicion(barco);
-                        } while (validacionOcupado(barco,b2) || validacionContiguo(barco,b2));
-                        b2.add(barco);
+                        } while (validacionOcupado(barco, b2) || validacionContiguo(barco, b2));
+                        b2.add(barco); //Añadimos al array de los barcos
                     }
                     break;
                 }
             }
+            // Actualiza impactos
             numImpactos2.setText("Impactos: " + String.valueOf(j2.getImpactos()));
             btnJugador2.setEnabled(false);
         } catch (NullPointerException error1) {
@@ -383,25 +403,25 @@ public class GUIEjemplo extends javax.swing.JFrame {
     }//GEN-LAST:event_coordDisparo2MouseClicked
 
     private void btnDisparo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisparo1ActionPerformed
-        String disp = j1.disparo(coordDisparo1.getText().toUpperCase());
-        disparar(j2, b2, disp);
-        numImpactos2.setText("Impactos: " + String.valueOf(j2.getImpactos()));
-        tablero2.setText(j2.toString());
-        coordDisparo1.setText("");
         btnDisparo1.setEnabled(false);
         btnDisparo2.setEnabled(true);
+        String disp = j1.disparo(coordDisparo1.getText().toUpperCase()); //Recoge la coordenada donde se disparará
+        disparar(j2, b2, disp);
+        numImpactos2.setText("Impactos: " + String.valueOf(j2.getImpactos())); // Actualiza impactos
+        tablero2.setText(j2.toString());
+        coordDisparo1.setText("");
         
+
     }//GEN-LAST:event_btnDisparo1ActionPerformed
 
     private void btnDisparo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisparo2ActionPerformed
-
-        String disp = j2.disparo(coordDisparo2.getText().toUpperCase());
-        disparar(j1, b1, disp);
-        numImpactos1.setText("Impactos: " + String.valueOf(j2.getImpactos()));
-        tablero1.setText(j1.toString());
-        coordDisparo2.setText("");
         btnDisparo2.setEnabled(false);
         btnDisparo1.setEnabled(true);
+        String disp = j2.disparo(coordDisparo2.getText().toUpperCase()); //Recoge la coordenada donde se disparará
+        disparar(j1, b1, disp);
+        numImpactos1.setText("Impactos: " + String.valueOf(j1.getImpactos())); // Actualiza impactos
+        tablero1.setText(j1.toString());
+        coordDisparo2.setText("");
     }//GEN-LAST:event_btnDisparo2ActionPerformed
 
     private void coordDisparo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coordDisparo1ActionPerformed
@@ -415,23 +435,40 @@ public class GUIEjemplo extends javax.swing.JFrame {
     private void btnJugador2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugador2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnJugador2ActionPerformed
-
+    /**
+     * asignaPosicion asigna la posicion del barco elegido y la guarda.
+     * @param barco Barco que posicionar
+     */
     public void asignarPosicion(Barco barco) {
-        boolean error;
+        boolean error; //Bandera para detectar errores
+        //Si el barco es de tamaño 1
         if (barco.getLongitud() == 1) {
+            //Si detecta un error, vulve a pedir el dato
             do {
                 error = false;
-                String posicion = JOptionPane.showInputDialog("Posicion Inicial de " + barco.getNombre() + ".Tamaño = " + barco.getLongitud());
+                String posicion = JOptionPane.showInputDialog("Posicion de " + barco.getNombre() + ".Tamaño = " + barco.getLongitud());
+                //Si las coordenadas son incorrectas, da error
                 if (posicion.length() == 2) {
+                    char x = posicion.toUpperCase().charAt(0); //Separamos la letra
+
                     String cord[] = new String[barco.getLongitud()];
-                    cord[0] = String.valueOf(posicion.toUpperCase());
-                    barco.setPosicion(new Coordenadas(cord));
+                    //Si esta fuera del rango del tablero, da error
+                    if (x>= 'A' && x <= 'J') {
+                        //Asigna posicion al barco
+                        cord[0] = String.valueOf(posicion.toUpperCase());
+                        barco.setPosicion(new Coordenadas(cord));
+                    }else{
+                        //Posicion fuera del tablero
+                        JOptionPane.showMessageDialog(null, "ERROR.Coordenada fuera del tablero.", "ERROR", 2);
+                        error = true;
+                    }
                 } else {
                     //posicion invalida
                     JOptionPane.showMessageDialog(null, "ERROR.Posicion invalida.", "ERROR", 2);
                     error = true;
                 }
             } while (error);
+            //Si el barco es de tamaño diferente a 1 
         } else {
             do {
                 error = false;
@@ -439,30 +476,40 @@ public class GUIEjemplo extends javax.swing.JFrame {
                 String posFinal = JOptionPane.showInputDialog("Posicion Final de " + barco.getNombre() + ".Tamaño = " + barco.getLongitud());
 
                 if (posInicial.length() == 2 && posInicial.length() == 2) {
-                    char xini = posInicial.toUpperCase().charAt(0);
-                    int yini = Integer.parseInt(posInicial.substring(1));
-                    char xfin = posFinal.toUpperCase().charAt(0);
-                    int yfin = Integer.parseInt(posFinal.substring(1));
+                    char xini = posInicial.toUpperCase().charAt(0); //Separamos la letra de la coordenada inicial
+                    int yini = Integer.parseInt(posInicial.substring(1)); //Separamos el numero de la coordenada inicial
+                    char xfin = posFinal.toUpperCase().charAt(0); //Separamos la letra de la coordenada final
+                    int yfin = Integer.parseInt(posFinal.substring(1)); //Separamos el numero de la coordenada final
                     String cord[] = new String[barco.getLongitud()];
-                    if (Math.abs(xfin - (xini - 1)) == barco.getLongitud() || Math.abs(yfin - (yini - 1)) == barco.getLongitud()) {
-                        if (xini == xfin) {
-                            for (int j = 0; j <= (yfin - yini); j++) {
-                                cord[j] = String.valueOf(xini) + String.valueOf((yini + j));
+                    //Si esta fuera del rango del tablero, da error
+                    if ((xini >= 'A' && xini <= 'J') && (xfin >= 'A' && xfin <= 'J')) {
+                        //Si el tamaño es invalido, da error
+                        if (Math.abs(xfin - (xini - 1)) == barco.getLongitud() || Math.abs(yfin - (yini - 1)) == barco.getLongitud()) {
+                            //Cuando coinciden las letras, se coloca en vertical
+                            if (xini == xfin) {
+                                for (int j = 0; j <= (yfin - yini); j++) {
+                                    cord[j] = String.valueOf(xini) + String.valueOf((yini + j));
+                                }
+                                barco.setPosicion(new Coordenadas(cord));
+                            //Cuando coinciden los numeros, se coloca en horizontal
+                            } else if (yfin == yini) {
+                                for (int j = 0; j <= (xfin - xini); j++) {
+                                    cord[j] = String.valueOf((char) (xini + j)) + String.valueOf((yini));
+                                }
+                                barco.setPosicion(new Coordenadas(cord));
+                            } else {
+                                //Error en diagonal
+                                JOptionPane.showMessageDialog(null, "ERROR.No se admiten posiciones en diagonal.", "ERROR", 2);
+                                error = true;
                             }
-                            barco.setPosicion(new Coordenadas(cord));
-                        } else if (yfin == yini) {
-                            for (int j = 0; j <= (xfin - xini); j++) {
-                                cord[j] = String.valueOf((char) (xini + j)) + String.valueOf((yini));
-                            }
-                            barco.setPosicion(new Coordenadas(cord));
                         } else {
-                            //Error en diagonal
-                            JOptionPane.showMessageDialog(null, "ERROR.No se admiten posiciones en diagonal.", "ERROR", 2);
+                            //Error tamaño invalido
+                            JOptionPane.showMessageDialog(null, "ERROR.Las coordenadas no cumplen con el tamaño del barco.", "ERROR", 2);
                             error = true;
                         }
-                    } else {
-                        //Error tamaño invalido
-                        JOptionPane.showMessageDialog(null, "ERROR.Las coordenadas no cumplen con el tamaño del barco.", "ERROR", 2);
+                    }else{
+                        //Posicion fuera del tablero
+                        JOptionPane.showMessageDialog(null, "ERROR.Coordenada fuera del tablero.", "ERROR", 2);
                         error = true;
                     }
                 } else {
@@ -473,12 +520,21 @@ public class GUIEjemplo extends javax.swing.JFrame {
             } while (error);
         }
     }
-
+    
+    /**
+     * disparar realiza el disparo de un jugador al oponente y lo marca en la tabla.
+     * @param oponente Jugador con quien compite
+     * @param barcos Barcos del jugador con quien compite
+     * @param disparo Casilla seleccionada por el jugador
+     */
     public void disparar(Jugador oponente, ArrayList<Barco> barcos, String disparo) {
-        char coord = oponente.impacto(disparo);
-        boolean pos = false;
+        char coord = oponente.impacto(disparo); //Selecciona que elemento hay en esa casilla
+        boolean pos = false; //Bandera
+        //Dependiendo si acierta,falla o ya ha seleccionado esa posicion anteriormente
         switch (coord) {
+            //Si ha disparado a una casilla desconocida
             case 'A':
+                //Comprueba si el jugador a acertado o fallado
                 for (int i = 0; i < barcos.size(); i++) {
                     String posBarco[] = barcos.get(i).getPosicion().getCord();
                     for (int j = 0; j < posBarco.length; j++) {
@@ -488,20 +544,26 @@ public class GUIEjemplo extends javax.swing.JFrame {
                     }
                 }
                 if (pos) {
-                    oponente.cambiarPosicion(disparo, 'O');
+                    //Si acierta, cambia 'A' por un 'O'
+                    oponente.cambiarCasilla(disparo, 'O');
+                    //Aumenta el impacto
                     oponente.setImpactos(oponente.getImpactos() + 1);
-                    if(oponente.getImpactos() == 11){
+                    //Condicion que finaliza la partida
+                    if (oponente.getImpactos() == 11) {
                         JOptionPane.showMessageDialog(null, oponente.getNick() + " ha perdido", "FINAL", 1);
                         btnDisparo1.setEnabled(false);
                         btnDisparo2.setEnabled(false);
                     }
                 } else {
-                    oponente.cambiarPosicion(disparo, 'X');
+                    //Si falla, cambia 'A' por un 'X'
+                    oponente.cambiarCasilla(disparo, 'X');
                 }
                 break;
+            //Si ha disparado a una casilla donde ha acertado
             case 'O':
                 JOptionPane.showMessageDialog(null, "Posicion ya elegida.", "ERROR", 1);
                 break;
+            //Si ha disparado a una casilla donde ha acertado
             case 'X':
                 JOptionPane.showMessageDialog(null, "Posicion ya elegida.", "ERROR", 1);
                 break;
@@ -509,27 +571,40 @@ public class GUIEjemplo extends javax.swing.JFrame {
                 throw new AssertionError();
         }
     }
-    
-    public boolean validacionOcupado(Barco barco, ArrayList<Barco> barcos){
+    /**
+     * validacionOcupado verifica si hay otro barco en esa posicion.
+     * @param barco Barco a comprobar
+     * @param barcos Lista de barcos
+     * @return Boleano indicando si hay o no
+     */
+    public boolean validacionOcupado(Barco barco, ArrayList<Barco> barcos) {
         for (int i = 0; i < barcos.size(); i++) {
-            if(barco.getPosicion().compareTo(barcos.get(i).getPosicion()) == 1){
-                JOptionPane.showMessageDialog(null, "ERROR.Posicion ocupada.", "ERROR", 2); 
+            //Si existe una codrenada igual en los barcos que se comparan, se muestra que la posicion esta ocupada
+            if (barco.getPosicion().compareTo(barcos.get(i).getPosicion()) == 1) {
+                JOptionPane.showMessageDialog(null, "ERROR.Posicion ocupada.", "ERROR", 2);
                 return true;
             }
         }
         return false;
     }
-    
-    public boolean validacionContiguo(Barco barco, ArrayList<Barco> barcos){
+    /**
+     * validacionContiguo verifica si hay otro barco contiguo al que se quiere introducir.
+     * @param barco Barco a comprobar
+     * @param barcos Lista de barcos
+     * @return Boleano indicando si hay o no
+     */
+    public boolean validacionContiguo(Barco barco, ArrayList<Barco> barcos) {
         try {
-            String coord [] = barco.getPosicion().getCord();
+            String coord[] = barco.getPosicion().getCord();
             for (int i = 0; i < coord.length; i++) {
+                //Guardamos en un array las posiciones contiguas de cada coordenada del barco para luego compararlas si existen en la lista de barcos
                 char letra = coord[i].toUpperCase().charAt(0);
                 int num = Integer.parseInt(coord[i].substring(1));
-                String array [] = {String.valueOf((char)(letra - 1)) + num, String.valueOf((char)(letra + 1)) + num, letra + String.valueOf(num - 1), letra + String.valueOf(num + 1)};
+                String array[] = {String.valueOf((char) (letra - 1)) + num, String.valueOf((char) (letra + 1)) + num, letra + String.valueOf(num - 1), letra + String.valueOf(num + 1)};
                 for (int j = 0; j < barcos.size(); j++) {
-                    if(barcos.get(j).getPosicion().compareTo(new Coordenadas(array)) == 1){
-                        JOptionPane.showMessageDialog(null, "ERROR.Posicion contigua.", "ERROR", 2); 
+                    //Si existe una codrenada igual en los barcos que se comparan, se muestra que la posicion esta ocupada
+                    if (barcos.get(j).getPosicion().compareTo(new Coordenadas(array)) == 1) {
+                        JOptionPane.showMessageDialog(null, "ERROR.Posicion contigua.", "ERROR", 2);
                         return true;
                     }
                 }
@@ -538,7 +613,7 @@ public class GUIEjemplo extends javax.swing.JFrame {
         }
         return false;
     }
-    
+
     /**
      * @param args the command line arguments
      */
