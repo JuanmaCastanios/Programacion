@@ -1,11 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Tema7.Ejemplos.EjemploCola;
 
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +21,7 @@ public class GUIColaImpresion extends javax.swing.JFrame {
      */
     public GUIColaImpresion() {
         initComponents();
-        this.modeloLista.setModel(JListModel);
+        this.archivos.setModel(modeloLista);
     }
 
     /**
@@ -32,16 +35,24 @@ public class GUIColaImpresion extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        modeloLista = new javax.swing.JList();
+        archivos = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        archivoIntroducir = new javax.swing.JTextField();
+        btnImprimir = new javax.swing.JButton();
+        labelTamanio = new javax.swing.JLabel();
+        btnSacar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 7, true), "Archivos e Impresiones"));
 
-        jScrollPane1.setViewportView(modeloLista);
+        archivos.setToolTipText("");
+        archivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                archivosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(archivos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -63,7 +74,28 @@ public class GUIColaImpresion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Archivo");
 
-        jButton1.setText("Imprimir");
+        archivoIntroducir.setToolTipText("Introduce el nombre del archivo a imprimir");
+
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        btnImprimir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnImprimirKeyPressed(evt);
+            }
+        });
+
+        labelTamanio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnSacar.setText("8=======D");
+        btnSacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSacarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,10 +106,15 @@ public class GUIColaImpresion extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(archivoIntroducir, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(labelTamanio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnImprimir)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSacar)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,9 +124,13 @@ public class GUIColaImpresion extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(archivoIntroducir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnImprimir)
+                            .addComponent(btnSacar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
@@ -98,6 +139,58 @@ public class GUIColaImpresion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        String nombreArchivo = this.archivoIntroducir.getText();
+        try {
+            Archivo archivo = new Archivo(nombreArchivo, new Random().nextInt(100,1001));
+            aniadirCola(archivo);
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void archivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_archivosMouseClicked
+        List <Archivo> seleccion = this.archivos.getSelectedValuesList();
+        int bytes = 0;
+        for (Archivo a : seleccion){
+            bytes += a.getTamanio();
+        }
+        labelTamanio.setText("Bytes: " + String.valueOf(bytes));
+    }//GEN-LAST:event_archivosMouseClicked
+
+    private void btnImprimirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnImprimirKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.btnImprimir.doClick();
+        }
+    }//GEN-LAST:event_btnImprimirKeyPressed
+
+    private void btnSacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacarActionPerformed
+        sacarCola();
+        actualizarLista();
+    }//GEN-LAST:event_btnSacarActionPerformed
+    
+    private void sacarCola(){
+        if(!cola.isEmpty()){
+            Archivo archivo = cola.removeFirst();
+            System.out.println("Imprimiendo " + archivo.getNombreArchivo());
+        }
+    }
+    
+    private void aniadirCola(Archivo archivo){
+        cola.addLast(archivo);
+        actualizarLista();
+        
+    }
+    
+    private void actualizarLista(){
+        modeloLista.clear();
+        for(Archivo a:cola){
+            modeloLista.addElement(a);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -133,14 +226,16 @@ public class GUIColaImpresion extends javax.swing.JFrame {
         });
     }
     LinkedList <Archivo> cola = new LinkedList();
-    private DefaultListModel<Archivo> JListModel = new DefaultListModel<>();
+    private DefaultListModel<Archivo> modeloLista = new DefaultListModel<>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField archivoIntroducir;
+    private javax.swing.JList archivos;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnSacar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JList modeloLista;
+    private javax.swing.JLabel labelTamanio;
     // End of variables declaration//GEN-END:variables
 }

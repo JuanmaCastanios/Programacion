@@ -12,7 +12,9 @@ public class Archivo {
     public Archivo() {
     }
 
-    public Archivo(String nombreArchivo, int tamanio) {
+    public Archivo(String nombreArchivo, int tamanio) throws Exception{
+        if(nombreArchivo == null || nombreArchivo.isBlank())
+            throw new Exception("ERROR.Nombre archivo obligatorio");
         this.nombreArchivo = nombreArchivo;
         this.tamanio = tamanio;
     }
@@ -35,7 +37,7 @@ public class Archivo {
 
     @Override
     public String toString() {
-        return "Archivo{" + "nombreArchivo=" + nombreArchivo + ", tamanio=" + tamanio + '}';
+        return nombreArchivo;
     }
     
     
