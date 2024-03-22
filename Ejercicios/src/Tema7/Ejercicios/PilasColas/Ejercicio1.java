@@ -20,9 +20,7 @@ public class Ejercicio1 {
     
     public static void aniadirLista(String cadena, LinkedList <Character> lista){
         for (int i = 0; i < cadena.length(); i++) {
-            lista.addLast(cadena.charAt(i));
-            lista.
+            lista.push(cadena.charAt(i));
         }
     }
-    
 }

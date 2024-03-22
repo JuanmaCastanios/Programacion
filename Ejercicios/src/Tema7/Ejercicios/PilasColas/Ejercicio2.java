@@ -20,12 +20,16 @@ public class Ejercicio2 {
         Collections.sort(pila1);
         Collections.sort(pila2);
         Collections.reverse(pila2);
+        
         System.out.println(pila1);
         System.out.println(pila2);
+        
         pila3.addAll(pila1);
         pila3.addAll(pila2);
+        
         Collections.sort(pila3);
         Collections.reverse(pila3);
+        
         System.out.println(pila3);
         
     }
