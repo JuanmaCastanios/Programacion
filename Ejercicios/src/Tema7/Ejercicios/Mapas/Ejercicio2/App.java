@@ -13,14 +13,16 @@ public class App {
         mapa.put(cliente.getIdCliente(), cliente);
     }
     public static void main(String[] args) {
-        Map doraLaExploradora = new HashMap();
+        Map mapa = new HashMap();
         Cliente c1 = new Cliente("12345678A", "Gusiluz1", -100);
-        aniadirCliente(c1, doraLaExploradora);
+        aniadirCliente(c1, mapa);
         
         Cliente c2 = new Cliente("12345678B", "Gusiluz2", -1000);
-        aniadirCliente(c1, doraLaExploradora);
+        aniadirCliente(c2, mapa);
         
         Cliente c3 = new Cliente("12345678C", "Gusiluz3", -10000);
-        aniadirCliente(c1, doraLaExploradora);
+        aniadirCliente(c3, mapa);
+        
+        System.out.println(mapa);
     }
 }
