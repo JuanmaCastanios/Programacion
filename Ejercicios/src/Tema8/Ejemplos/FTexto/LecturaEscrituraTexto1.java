@@ -1,8 +1,11 @@
 
-package Tema8.Ejemplos.FTexto;
+package FTexto;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -21,7 +24,7 @@ public class LecturaEscrituraTexto1 extends javax.swing.JFrame {
     public LecturaEscrituraTexto1() {
         initComponents();
         
-        this.setTitle("Lectura y escritura de un fichero binario");
+        this.setTitle("Lectura y escritura de un fichero de texto");
     }
 
     /**
@@ -91,14 +94,42 @@ public class LecturaEscrituraTexto1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_abrirActionPerformed
+        //Seleccionar fichero que se quiere abrir
+        File f = seleccionarFile("r");
+        if(f == null) return;
 
+        FileReader fr = null;
+        BufferedReader br = null;
+        String linea;
+        try {
+            //Apertura
+            fr = new FileReader(f);
+            br = new BufferedReader(fr);
+            //Abrimos el texto
+            while ((linea = br.readLine()) != null) {
+                this.resultado.append(linea);
+                this.resultado.append("\n");
+            }
+            
+        } catch (EOFException ex){
+            JOptionPane.showMessageDialog(this, "Fin lectura", "Grabacion Fichero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error al escribir en el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (Exception e) {
+            }
+        }
     }//GEN-LAST:event_btn_abrirActionPerformed
 
     private void btn_grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarActionPerformed
         //Seleccionar fichero donde grabar
         File f = seleccionarFile("w");
         if(f == null) return;
-        
         //Grabamos los daots en el fichero
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -108,7 +139,9 @@ public class LecturaEscrituraTexto1 extends javax.swing.JFrame {
             fw = new FileWriter(f, true);
             bw = new BufferedWriter(fw);
             //Grabamos texto
-            bw.write(this.resultado.getText());
+            
+            
+            bw.write(this.resultado.getText() + "\n");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error al escribir en el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
