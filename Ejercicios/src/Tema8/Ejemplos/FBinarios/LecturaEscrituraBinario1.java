@@ -1,12 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Tema8.Ejemplos.FBinarios;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class LecturaEscrituraBinario1 extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_abrir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addComponent(btn_grabar)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -99,13 +100,55 @@ public class LecturaEscrituraBinario1 extends javax.swing.JFrame {
 
     private void btn_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_abrirActionPerformed
         
-        File f = seleccionarFile();
+        // Lectura del contenido del fichero previamente generado
+        File f = seleccionarFile("r"); // Seleccionamos el fichero donde grabar
+        //abrimos fichero para lectura
+        if(f == null) return;
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        DataInputStream dis = null;
+        
+        boolean eof;
+        int cont = 0;
+        try {
+            //Apertura de fichero
+            fis = new FileInputStream(f);
+            bis = new BufferedInputStream(fis);
+            dis =  new DataInputStream(bis);
+            
+            //Procesamiento del fichero
+            Random gen = new Random();
+            eof = false;
+            while(!eof){
+                this.resultado.append(dis.readDouble() + "\n");
+                cont++;
+            }
+            JOptionPane.showMessageDialog(this, "Proceso finalizado correctamente", "Grabacion Fichero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Error al abrir el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
+        }catch (EOFException ex){
+            eof = true;
+            this.resultado.append("\nTotal: " + cont);
+            JOptionPane.showMessageDialog(this, "Fin lectura", "Grabacion Fichero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error al grabar en el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                //Cierre de flujos
+                dis.close();
+                bis.close();
+                fis.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al cerrar el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
         
     }//GEN-LAST:event_btn_abrirActionPerformed
 
     private void btn_grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarActionPerformed
         // Grabamos en el fichero 100 números aleatorios (double)
-        File f = seleccionarFile(); // Seleccionamos el fichero donde grabar
+        File f = seleccionarFile("w"); // Seleccionamos el fichero donde grabar
         //abrimos fichero para escritura
         if(f == null) return;
         FileOutputStream fos = null;
@@ -136,37 +179,23 @@ public class LecturaEscrituraBinario1 extends javax.swing.JFrame {
                 fos.close();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error al cerrar el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
-            }
-            
+            } 
         }
-        
-        
-        
     }//GEN-LAST:event_btn_grabarActionPerformed
     
-    public File seleccionarFile() {
+    public File seleccionarFile(String modo) {
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.setDialogTitle("Elije el directorio");
         File file = null; //referencia al archivo
-        int resp = jfc.showOpenDialog(null);
+        int resp = jfc.showDialog(this, (modo.equals("r")?"Abrir":"Cerrar"));
         if (resp == JFileChooser.APPROVE_OPTION) {
             file = jfc.getSelectedFile();
         }
         return file;
     }
     
-    public File seleccionarCarpeta(){
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        jfc.setDialogTitle("Elije el directorio");
-        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        File file = null; //referencia al archivo
-        int resp = jfc.showOpenDialog(null);
-        if (resp == JFileChooser.APPROVE_OPTION) {
-            file = jfc.getSelectedFile();
-        }
-        return file;
-    }
+    
     
     /**
      * @param args the command line arguments
