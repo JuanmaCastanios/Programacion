@@ -1,5 +1,5 @@
 
-package FTexto;
+package Tema8.Ejemplos.FTexto;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
