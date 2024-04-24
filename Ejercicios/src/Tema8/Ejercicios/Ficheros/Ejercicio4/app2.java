@@ -7,8 +7,19 @@ package Tema8.Ejercicios.Ficheros.Ejercicio4;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -20,7 +31,8 @@ public class app2 extends javax.swing.JFrame {
     
     private File fileTexto;
     private File fileDatos;
-    private File carpetaDestino;
+    private String rutaCarpetaCartas = "";
+    
     
     private DataInputStream dis;
     private BufferedReader br;
@@ -41,7 +53,7 @@ public class app2 extends javax.swing.JFrame {
     
     public File seleccionarFile(String titulo, String textoFiltro, String extFiltro) {
 
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        JFileChooser jfc = new JFileChooser("C:\\Ejercicios\\Programacion\\Ejercicios\\src\\Tema8\\Ejercicios\\Ficheros\\Ejercicio4");
         jfc.setDialogTitle(titulo);
         FileNameExtensionFilter filter = new FileNameExtensionFilter(textoFiltro, extFiltro);
         jfc.addChoosableFileFilter(filter);
@@ -53,6 +65,31 @@ public class app2 extends javax.swing.JFrame {
         return file;
     }
     
+    public File seleccionarCarpetaDestino() {
+
+        JFileChooser jfc = new JFileChooser("C:\\Ejercicios\\Programacion\\Ejercicios\\src\\Tema8\\Ejercicios\\Ficheros\\Ejercicio4");
+        jfc.setDialogTitle("Carpea donde dejar las cartas generadas");
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        File file = null; //referencia a la carpeta
+        int resp = jfc.showOpenDialog(this);
+        if (resp == JFileChooser.APPROVE_OPTION) {
+            file = jfc.getSelectedFile();
+        }
+        return file;
+    }
+    
+    public String carpetaCartas() {
+
+        JFileChooser jfc = new JFileChooser("C:\\Ejercicios\\Programacion\\Ejercicios\\src\\Tema8\\Ejercicios\\Ficheros\\Ejercicio4");
+        jfc.setDialogTitle("Carpea donde dejar las cartas generadas");
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        File file = null; //referencia a la carpeta
+        int resp = jfc.showOpenDialog(this);
+        if (resp == JFileChooser.APPROVE_OPTION) {
+            file = jfc.getSelectedFile();
+        }
+        return file.getAbsolutePath();
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,9 +130,19 @@ public class app2 extends javax.swing.JFrame {
         });
 
         texto_datos.setToolTipText("Doble click para seleccionar el fichero con los datos");
+        texto_datos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                texto_datosMouseClicked(evt);
+            }
+        });
 
         btn_generar.setMnemonic('G');
         btn_generar.setText("Generar Cartas");
+        btn_generar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generarActionPerformed(evt);
+            }
+        });
 
         menu_aplicacion.setText("Aplicacion");
 
@@ -136,9 +183,19 @@ public class app2 extends javax.swing.JFrame {
         menu_cartas.add(item_generar);
 
         item_generaraPDF.setText("Generar cartas (pdf)");
+        item_generaraPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                item_generaraPDFMouseClicked(evt);
+            }
+        });
         menu_cartas.add(item_generaraPDF);
 
         item_ver.setText("Ver");
+        item_ver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_verActionPerformed(evt);
+            }
+        });
         menu_cartas.add(item_ver);
 
         jMenuBar1.add(menu_cartas);
@@ -198,9 +255,93 @@ public class app2 extends javax.swing.JFrame {
     private void texto_textoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto_textoMouseClicked
         if(evt.getClickCount() == 2){
             fileTexto = seleccionarFile("Selecciona la carta con el texto", "Ficheros de texto", "txt");
+            if(fileTexto != null) this.texto_texto.setText(fileTexto.getPath());
         }
     }//GEN-LAST:event_texto_textoMouseClicked
 
+    private void texto_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto_datosMouseClicked
+        if(evt.getClickCount() == 2){
+            fileDatos = seleccionarFile("Selecciona la carta con los empleados", "Ficheros de binarios", "dat");
+            if(fileDatos != null) this.texto_datos.setText(fileDatos.getPath());
+        }
+    }//GEN-LAST:event_texto_datosMouseClicked
+
+    private void btn_generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generarActionPerformed
+        File carpetaDestino = seleccionarCarpetaDestino();
+        if(carpetaDestino == null){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una carpeta destino de las cartas", "Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if(fileTexto == null || fileDatos == null){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar los ficheros con los datos", "Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        //proceso de generación de las cartas
+        boolean EOF = false;
+        try(InputStream input = Files.newInputStream(Paths.get(fileDatos.toURI()));
+                DataInputStream dis = new DataInputStream(input)){
+            //extraemos texto de la carta
+            String texto = extraerTexto();
+            String archivoFelicitacion = ""; //nombre archivo con la carta de felicitacion
+            int cont = 0; //contador secuencial del nº de la carta
+            
+            String nombreEmp = "";
+            String direccEmp = "";
+            while(!EOF){
+                //Hay empleado
+                cont++;
+                nombreEmp = dis.readUTF();
+                direccEmp = dis.readUTF();
+                
+                //Genero archivo con la carta
+                archivoFelicitacion = "carta" + cont + ".txt";
+                BufferedWriter bw = Files.newBufferedWriter(Paths.get(carpetaDestino.getPath() + File.separator+archivoFelicitacion));
+                
+                //escribo los datos en la carta
+                bw.write(nombreEmp);
+                bw.newLine();
+                bw.newLine();
+                bw.write(direccEmp + "\t\t" + fecha("Valladolid"));
+                bw.newLine();
+                bw.newLine();
+                bw.write(texto);
+                
+                //cierro el flujo de salida
+                bw.close();
+            }
+            
+        } catch (EOFException ex) {
+            JOptionPane.showMessageDialog(this, "Cartas generadas", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btn_generarActionPerformed
+
+    private void item_generaraPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_generaraPDFMouseClicked
+        
+    }//GEN-LAST:event_item_generaraPDFMouseClicked
+
+    private void item_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_verActionPerformed
+        rutaCarpetaCartas = carpetaCartas();
+        JOptionPane.showMessageDialog(this, rutaCarpetaCartas);
+    }//GEN-LAST:event_item_verActionPerformed
+    
+    private String extraerTexto() throws IOException{
+        List<String> texto = Files.readAllLines(Paths.get(fileTexto.toURI()), StandardCharsets.ISO_8859_1);
+        String todo = "";
+        for(String linea:texto){
+            todo += linea + "\n";
+        }
+        return todo;
+    }
+    
+    private String fecha(String localidad){
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE;
+        return localidad + ", " + dtf.format(LocalDate.now());
+    }
+    
     /**
      * @param args the command line arguments
      */
