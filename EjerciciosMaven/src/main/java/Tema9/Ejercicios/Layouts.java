@@ -4,14 +4,19 @@ package Tema9.Ejercicios;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.Box;
+import javax.swing.Box.Filler;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author bladiaju
  */
-public class Layouts extends javax.swing.JFrame {
+public class Layouts extends javax.swing.JFrame implements MouseListener{
 
     /**
      * Creates new form Layouts
@@ -31,9 +36,16 @@ public class Layouts extends javax.swing.JFrame {
         this.setTitle("Administradores de diseño");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+    
+    private JButton crearBoton(){
+        JButton boton = new JButton(String.valueOf(++cont));
+        boton.addMouseListener(this);
+        return boton;
+    }
+    
     private void setFlowLayout(){
         for (int i = 0; i < 10; i++) {
-            this.panelFlow.add(new JButton(String.valueOf(++cont)));   
+            this.panelFlow.add(crearBoton());  
         }
     }
     
@@ -44,42 +56,42 @@ public class Layouts extends javax.swing.JFrame {
         constraints.gridheight = 4;
         constraints.weighty = 1.0;
         constraints.fill = GridBagConstraints.VERTICAL;
-        this.panelGridBag.add(new JButton(String.valueOf(++cont)), constraints); //Boton 11
+        this.panelGridBag.add(crearBoton(), constraints); //Boton 11
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridheight = 1;
-        this.panelGridBag.add(new JButton(String.valueOf(++cont)), constraints); //Boton 12
+        this.panelGridBag.add(crearBoton(), constraints); //Boton 12
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridheight = 1;
-        this.panelGridBag.add(new JButton(String.valueOf(++cont)), constraints); //Boton 13
+        this.panelGridBag.add(crearBoton(), constraints); //Boton 13
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridheight = 1;
-        this.panelGridBag.add(new JButton(String.valueOf(++cont)), constraints); //Boton 14
+        this.panelGridBag.add(crearBoton(), constraints); //Boton 14
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridheight = 1;
-        this.panelGridBag.add(new JButton(String.valueOf(++cont)), constraints); //Boton 15
+        this.panelGridBag.add(crearBoton(), constraints); //Boton 15
     }
     
     private void setBorderLayout(){
-        this.panelBorder.add(new JButton(String.valueOf(++cont)), BorderLayout.CENTER);
-        this.panelBorder.add(new JButton(String.valueOf(++cont)), BorderLayout.NORTH);
-        this.panelBorder.add(new JButton(String.valueOf(++cont)), BorderLayout.WEST);
-        this.panelBorder.add(new JButton(String.valueOf(++cont)), BorderLayout.EAST);
-        this.panelBorder.add(new JButton(String.valueOf(++cont)), BorderLayout.SOUTH);
+        this.panelBorder.add(crearBoton(), BorderLayout.CENTER);
+        this.panelBorder.add(crearBoton(), BorderLayout.NORTH);
+        this.panelBorder.add(crearBoton(), BorderLayout.WEST);
+        this.panelBorder.add(crearBoton(), BorderLayout.EAST);
+        this.panelBorder.add(crearBoton(), BorderLayout.SOUTH);
     }
     
     private void setBoxLayout(){
         this.panelBox.setPreferredSize(new Dimension(100,0));
         for (int i = 0; i < 10; i++) {
-            this.panelBox.add(new JButton(String.valueOf(++cont)));   
+            this.panelBox.add(crearBoton());   
         }
     }
     private void setGridLayout(){
         for (int i = 0; i < 20; i++) {
-            this.panelGrid.add(new JButton(String.valueOf(++cont)));   
+            this.panelGrid.add(crearBoton());   
         }
     }
     /**
@@ -166,4 +178,29 @@ public class Layouts extends javax.swing.JFrame {
     private javax.swing.JPanel panelGrid;
     private javax.swing.JPanel panelGridBag;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        JOptionPane.showMessageDialog(this, "Has pulsado el boton " + ((JButton)e.getSource()).getText());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+       
+    }
 }

@@ -1,29 +1,54 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package Tema8.Ejercicios;
 
+package Tema9.Ejercicios;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  *
  * @author bladiaju
  */
-public class Pin extends javax.swing.JFrame {
+public class Pin extends javax.swing.JFrame implements MouseListener{
 
     /**
      * Creates new form Pin
      */
+    private String texto = "";
+    
     public Pin() {
         initComponents();
-        crearBotones();
+        setFrame();
+        setBotonesLayout();
     }
-    private void crearBotones(){
-        for (int i = 0; i < 10; i++) {
-            JButton boton = new JButton(String.valueOf(i));
-            this.jPanel1.add(boton);
+    private void setFrame(){
+        this.setTitle("Generador de Pin");
+        this.setResizable(false);
+        this.setSize(500, 200);
+    }
+    private void creacionBotones(){
+        ArrayList<Integer> lista = new ArrayList();
+        Random gen = new Random();
+        while(lista.size() < 10){
+            int num = gen.nextInt(0,10);
+            if(!lista.contains(num)){
+                lista.add(num);
+            }
         }
+        
+        for (int i = 0; i < 10; i++) {
+            JButton boton = new JButton(String.valueOf(lista.get(i)));
+            boton.addMouseListener(this);
+            this.panelBotones.add(boton); 
+        }
+    }
+    
+    private void setBotonesLayout(){
+        creacionBotones();
         
     }
     /**
@@ -35,22 +60,24 @@ public class Pin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelBotones = new javax.swing.JPanel();
+        panelTexto = new javax.swing.JPanel();
+        texto_pin = new javax.swing.JPasswordField();
+        boton_ver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().add(panelBotones, java.awt.BorderLayout.PAGE_START);
 
-        jPasswordField1.setText("jPasswordField1");
-        getContentPane().add(jPasswordField1, java.awt.BorderLayout.CENTER);
+        panelTexto.setLayout(new javax.swing.BoxLayout(panelTexto, javax.swing.BoxLayout.LINE_AXIS));
+        panelTexto.add(texto_pin);
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1, java.awt.BorderLayout.LINE_START);
+        boton_ver.setText("Ver");
+        panelTexto.add(boton_ver);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_END);
+        getContentPane().add(panelTexto, java.awt.BorderLayout.PAGE_END);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -89,8 +116,39 @@ public class Pin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JButton boton_ver;
+    private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel panelTexto;
+    private javax.swing.JPasswordField texto_pin;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(!((JButton) e.getSource()).getText().equals("Ver")){
+            texto += ((JButton) e.getSource()).getText();
+            texto_pin.setText(texto);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if((((JButton) e.getSource()).getText()).equals("Ver")){
+            texto_pin.setEchoChar((char)0);
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
 }
