@@ -16,11 +16,13 @@ import com.opencsv.ICSVWriter;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,10 +47,9 @@ public class Ventana extends javax.swing.JFrame {
     
     
     private void setFrame(){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("H:m d/M/y");
-        LocalDateTime fecha = LocalDateTime.now();
+       
         this.setLocationRelativeTo(null);
-        this.setTitle(String.valueOf(formato.format(fecha)));
+        this.setTitle("Encuesta");
         this.setSize(387, 245);
         this.setResizable(false);
         this.rboton_si.setSelected(true);
@@ -56,21 +57,35 @@ public class Ventana extends javax.swing.JFrame {
     public static CSVParser parser = new CSVParserBuilder().withSeparator(';').withIgnoreQuotations(true).build();
     
     private void lecturaCSV(Reader reader) throws IOException, CsvException{
-        try (CSVReader csvreader = new CSVReaderBuilder(reader).withCSVParser(parser).withSkipLines(1).build()){
+        DecimalFormat df = new DecimalFormat("0.00");
+        try (CSVReader csvreader = new CSVReaderBuilder(reader).withCSVParser(parser).build()){
             String [] linea; //Cada linea leida del fichero CSV
             String texto = "";
             while((linea = csvreader.readNext()) != null){
-                texto = "Numero de votos: " + (Integer.parseInt(linea[0]) + Integer.parseInt(linea[1]) + Integer.parseInt(linea[2]));
-                
+                int numVotos = (Integer.parseInt(linea[0]) + Integer.parseInt(linea[1]) + Integer.parseInt(linea[2]));
+                texto += "Numero de votos: " + numVotos + "\n";
+                texto += "Porcentaje de SI: " + df.format((Integer.parseInt(linea[0]) / (double) numVotos)*100) + "%\n";
+                texto += "Porcentaje de SI: " + df.format((Integer.parseInt(linea[1]) / (double) numVotos)*100) + "%\n";
+                texto += "Porcentaje de SI: " + df.format((Integer.parseInt(linea[2]) / (double) numVotos)*100) + "%\n";
             }
-            JOptionPane.showMessageDialog(this, texto);
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+            LocalDateTime fecha = LocalDateTime.now();
+            JOptionPane.showMessageDialog(this, texto,String.valueOf(formato.format(fecha)),JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
     private void escrituraCSV() throws IOException{
         try (ICSVWriter cw = new CSVWriterBuilder(
-            new FileWriter(".\\ficheros\\encuesta.csv" , true)).withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER).withSeparator(';').withLineEnd(CSVWriter.DEFAULT_LINE_END).build()){
-            
+            new FileWriter(".\\src\\main\\java\\com\\gf\\encuesta\\ficheros\\encuesta.csv" , true)).withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER).withSeparator(';').withLineEnd(CSVWriter.DEFAULT_LINE_END).build()){
+            if(rboton_si.isSelected()){
+                ++votosSi;
+            } else if(rboton_no.isSelected()){
+                ++votosNo;
+            } if(rboton_nc.isSelected()){
+                ++votosNc;
+            }
+            String [] texto = {String.valueOf(votosSi),String.valueOf(votosNo),String.valueOf(votosNc)};
+            cw.writeNext(texto);
         }
     }
     
@@ -129,6 +144,7 @@ public class Ventana extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridLayout(2, 0));
 
         boton_votar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        boton_votar.setForeground(new java.awt.Color(255, 0, 51));
         boton_votar.setMnemonic('V');
         boton_votar.setText("Votar");
         boton_votar.setMaximumSize(new java.awt.Dimension(20, 23));
@@ -140,6 +156,7 @@ public class Ventana extends javax.swing.JFrame {
         jPanel2.add(boton_votar);
 
         boton_resultados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        boton_resultados.setForeground(new java.awt.Color(255, 0, 51));
         boton_resultados.setMnemonic('R');
         boton_resultados.setText("Resultados de la encuesta");
         boton_resultados.addActionListener(new java.awt.event.ActionListener() {
@@ -156,21 +173,27 @@ public class Ventana extends javax.swing.JFrame {
 
     private void boton_votarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_votarActionPerformed
         
-        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(".\\src\\main\\java\\com\\gf\\encuesta\\ficheros\\encuesta.csv"))){
+            escrituraCSV();
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "No se ha encontrado el archivo.","ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex){
+            JOptionPane.showMessageDialog(this, "No se ha leido el archivo.","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_boton_votarActionPerformed
 
     private void boton_resultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_resultadosActionPerformed
-        try (BufferedReader br = new BufferedReader(new FileReader(".\\ficheros\\encuesta.csv"))){
+        try (BufferedReader br = new BufferedReader(new FileReader(".\\src\\main\\java\\com\\gf\\encuesta\\ficheros\\encuesta.csv"))){
             lecturaCSV(br);
         } catch (FileNotFoundException ex) {
-            System.out.println("Error 1");
+            JOptionPane.showMessageDialog(this, "No se ha encontrado el archivo.","ERROR",JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex){
-            System.out.println("Error 2");
+            JOptionPane.showMessageDialog(this, "No se ha escrito el archivo.","ERROR",JOptionPane.ERROR_MESSAGE);
         } catch (CsvValidationException ex){
-            System.out.println("Error 3");
+            JOptionPane.showMessageDialog(this, "ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
         } catch (CsvException ex) {
-            System.out.println("Error 4");
+            JOptionPane.showMessageDialog(this, "ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_boton_resultadosActionPerformed
 
