@@ -9,15 +9,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.Timer;
-import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
-
 /**
  *
  * @author bladiaju
@@ -29,6 +23,7 @@ public class vistaImagen extends javax.swing.JFrame {
      */
     private ImageIcon imagenActual;
     private File[] listaImagenes;
+    private Timer timer;
 
     public vistaImagen() {
         initComponents();
@@ -36,25 +31,22 @@ public class vistaImagen extends javax.swing.JFrame {
         pack();
         listaImagenes = seleccionarFiles();
         this.jSlider1.setValue(2);
-        this.
         cargarImagen();
+        
     }
 
     private void cargarImagen() {
-        Timer t = new  Timer(jSlider1.getValue() * 1000, new ActionListener() {
+        Timer timer = new  Timer(jSlider1.getValue() * 1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               while(true){
-                   int cont = 0;
-                    imagenActual = new ImageIcon(listaImagenes[cont].getAbsolutePath());
-                    redimensionarImagen(imagenActual);
-                    cont++;
-               }
+                int cont = 0;
+                imagenActual = new ImageIcon(listaImagenes[cont].getAbsolutePath());
+                redimensionarImagen(imagenActual);
+                cont++;
             }
         });
-        t.start();
-        
-
+        timer.start();
+        this.setVisible(true);
     }
 
     private void redimensionarImagen(ImageIcon imagen) {
