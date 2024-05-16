@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Tema9.Ejercicios.Imagenes;
 
 import java.awt.Dimension;
@@ -9,50 +6,41 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.Timer;
-import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  *
  * @author bladiaju
  */
-public class vistaImagen extends javax.swing.JFrame {
+public class vistaImagen extends javax.swing.JFrame implements ActionListener{
 
     /**
      * Creates new form vistaImagen
      */
     private ImageIcon imagenActual;
     private File[] listaImagenes;
+    private Timer t;
+    private int retardo;
+    private int i;
 
     public vistaImagen() {
         initComponents();
+        retardo = jSlider1.getValue() * 1000;
+        t = new Timer(retardo, this);
         this.setPreferredSize(new Dimension(500, 300));
         pack();
         listaImagenes = seleccionarFiles();
         this.jSlider1.setValue(2);
-        this.
-        cargarImagen();
     }
 
     private void cargarImagen() {
-        Timer t = new  Timer(jSlider1.getValue() * 1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               while(true){
-                   int cont = 0;
-                    imagenActual = new ImageIcon(listaImagenes[cont].getAbsolutePath());
-                    redimensionarImagen(imagenActual);
-                    cont++;
-               }
-            }
-        });
-        t.start();
+       
+        int cont = 0;
+        imagenActual = new ImageIcon(listaImagenes[i].getAbsolutePath());
+        redimensionarImagen(imagenActual);
+        cont++;
         
 
     }
@@ -119,6 +107,7 @@ public class vistaImagen extends javax.swing.JFrame {
         int resp = jfc.showOpenDialog(this);
         if (resp == JFileChooser.APPROVE_OPTION) {
             lista = jfc.getSelectedFiles();
+            t.start();
         }
         return lista;
     }
@@ -164,4 +153,14 @@ public class vistaImagen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (i = 0; i < listaImagenes.length; i++) {
+            if(i == listaImagenes.length - 1){
+                i = 0;
+            }
+            cargarImagen();
+        }
+    }
 }
