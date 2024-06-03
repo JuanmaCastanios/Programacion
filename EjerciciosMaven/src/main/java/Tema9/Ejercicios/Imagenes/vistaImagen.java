@@ -21,9 +21,11 @@ public class vistaImagen extends javax.swing.JFrame implements ActionListener{
      */
     private ImageIcon imagenActual;
     private File[] listaImagenes;
+
     private Timer t;
     private int retardo;
     private int i;
+    private Timer timer;
 
     public vistaImagen() {
         initComponents();
@@ -35,14 +37,19 @@ public class vistaImagen extends javax.swing.JFrame implements ActionListener{
         this.jSlider1.setValue(2);
     }
 
-    private void cargarImagen() {
-       
-        int cont = 0;
-        imagenActual = new ImageIcon(listaImagenes[i].getAbsolutePath());
-        redimensionarImagen(imagenActual);
-        cont++;
-        
 
+    private void cargarImagen() {
+        Timer timer = new  Timer(jSlider1.getValue() * 1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int cont = 0;
+                imagenActual = new ImageIcon(listaImagenes[cont].getAbsolutePath());
+                redimensionarImagen(imagenActual);
+                cont++;
+            }
+        });
+        timer.start();
+        this.setVisible(true);
     }
 
     private void redimensionarImagen(ImageIcon imagen) {
