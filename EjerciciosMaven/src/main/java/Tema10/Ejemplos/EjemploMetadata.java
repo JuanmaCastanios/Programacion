@@ -30,7 +30,7 @@ import javax.swing.JLabel;
  */
 public class EjemploMetadata extends javax.swing.JFrame {
 
-    private String url = "jdbc:mysql://localhost:3306/bd";
+    private String url = "jdbc:mysql://localhost:3306/dam";
     private ResultSetMetaData rsmd; //metadatos del resultado de una SELECT
     private DatabaseMetaData dbmd; //metadatos de toda la BD
     private String nombre_bd;
@@ -55,7 +55,7 @@ public class EjemploMetadata extends javax.swing.JFrame {
 
             //ahora recuperao los metadatos de la tabla
             try ( Statement st = con.createStatement();) {
-                String sql = "SELECT * FROM tabla";
+                String sql = "SELECT * FROM alumnos";
                 try ( ResultSet rs = st.executeQuery(sql);) {
                     rsmd = rs.getMetaData(); //recupero los metadatos de la tabla1
                     

@@ -7,11 +7,13 @@ package Tema10.Ejemplos;
  */
 import java.awt.Dimension;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class EjemploPreparedStatement extends javax.swing.JFrame {
 
-    private String url = "jdbc:mysql://localhost:3306/bd";
+    private String url = "jdbc:mysql://localhost:3306/dam";
 
     public EjemploPreparedStatement() {
         initComponents();
@@ -30,9 +32,6 @@ public class EjemploPreparedStatement extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); //para colocar la ventana al centro de la pantalla
     }
 
-    public String getUrl() {
-        return url;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,18 +111,29 @@ public class EjemploPreparedStatement extends javax.swing.JFrame {
      */
 
     private void itemInsercionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemInsercionActionPerformed
-        try ( Connection con = DriverManager.getConnection(url, "root", "");) {
-            Statement st = con.createStatement();
-
-            //Pediremos tantos datos como necesitemos
-            String valor1 = JOptionPane.showInputDialog("Introduce valor: ");
+        try ( Connection con = DriverManager.getConnection(url, "root", "")) {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            String sql = "INSERT INTO alumnos(nombre, apellidos, nota, fecha_nacimiento) VALUES (?,?,?,?)";
             
-            String sql = "INSERT INTO tabla(columna1) VALUES ('" + valor1 + "')";
-            if (st.executeUpdate(sql) > 0) {
-                JOptionPane.showMessageDialog(this, "Inserción realizada");
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al insertar", null, JOptionPane.ERROR_MESSAGE);
-            }
+            try(PreparedStatement ps = con.prepareStatement(sql)){
+                 //Pediremos tantos datos como necesitemos
+                String nombre = JOptionPane.showInputDialog("Introduce nombre alumno: ");
+                ps.setString(1, nombre);
+                String apellidos = JOptionPane.showInputDialog("Introduce apellidos alumno: ");
+                ps.setString(2, apellidos);
+                String nota = JOptionPane.showInputDialog("Introduce nota alumno: ");
+                ps.setDouble(3, Double.parseDouble(nota));
+                String fechaNacimiento = JOptionPane.showInputDialog("Introduce fecha de nacimiento alumno: ");
+                java.sql.Date fechaDate = formato.parse(fechaNacimiento);
+                ps.setDate(4, fechaDate);
+                if (ps.executeUpdate(sql) > 0) {
+                    JOptionPane.showMessageDialog(this, "Inserción realizada");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al insertar", null, JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex){
+                
+            }      
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -138,8 +148,8 @@ public class EjemploPreparedStatement extends javax.swing.JFrame {
      */
     private void itemBorradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBorradoActionPerformed
         try ( Connection con = DriverManager.getConnection(url, "root", "");) {
-            try ( PreparedStatement ps = con.prepareStatement("DELETE FROM tabla WHERE clave = ?");) {
-                int pk = Integer.parseInt(JOptionPane.showInputDialog("Introduce clave de la fila a borrar: "));
+            try ( PreparedStatement ps = con.prepareStatement("DELETE FROM alumnos WHERE id_alumno = ?");) {
+                int pk = Integer.parseInt(JOptionPane.showInputDialog("Introduce id del alumno a borrar: "));
                 ps.setInt(1, pk);
                 int numFilas = ps.executeUpdate();
                 if(numFilas > 0) JOptionPane.showMessageDialog(this, "Se han eliminado " + numFilas + " fila/s.");
@@ -161,9 +171,12 @@ public class EjemploPreparedStatement extends javax.swing.JFrame {
      */
     private void itemActualizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemActualizacionActionPerformed
         try ( Connection con = DriverManager.getConnection(url, "root", "");) {
-            try ( PreparedStatement ps = con.prepareStatement("UPDATE tabla1 SET columna2=99 WHERE columna2 IS NULL");) {
-                String sql = "UPDATE tabla1 SET columna2=? WHERE columna2 IS NULL";
-                ps.setInt(1,99);
+            String sql = "UPDATE alumnos SET nota=? WHERE id_alumno = ?";
+            try ( PreparedStatement ps = con.prepareStatement(sql);) {
+                String idAlumno = JOptionPane.showInputDialog("Introduce nombre alumno: ");
+                ps.setInt(2, Integer.parseInt(idAlumno));
+                String nuevaNota = JOptionPane.showInputDialog("Introduce nueva nota del alumno: ");
+                ps.setDouble(1,Double.parseDouble(nuevaNota));
                 int numFilas = ps.executeUpdate();
                 if(numFilas > 0) JOptionPane.showMessageDialog(this, "Se han actualizado " + numFilas + " fila/s.");
             } catch (SQLException ex) {
