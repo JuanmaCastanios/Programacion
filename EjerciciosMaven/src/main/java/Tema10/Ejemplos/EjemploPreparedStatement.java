@@ -124,8 +124,8 @@ public class EjemploPreparedStatement extends javax.swing.JFrame {
                 String nota = JOptionPane.showInputDialog("Introduce nota alumno: ");
                 ps.setDouble(3, Double.parseDouble(nota));
                 String fechaNacimiento = JOptionPane.showInputDialog("Introduce fecha de nacimiento alumno: ");
-                java.sql.Date fechaDate = formato.parse(fechaNacimiento);
-                ps.setDate(4, fechaDate);
+                //java.sql.Date fechaDate = formato.parse(fechaNacimiento);
+                //ps.setDate(4, fechaDate);
                 if (ps.executeUpdate(sql) > 0) {
                     JOptionPane.showMessageDialog(this, "Inserción realizada");
                 } else {

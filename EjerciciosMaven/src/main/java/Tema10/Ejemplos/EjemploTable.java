@@ -29,7 +29,7 @@ import javax.swing.table.TableRowSorter;
 public class EjemploTable extends javax.swing.JFrame implements TableModelListener {
 
     private DefaultTableModel modeloTabla;
-    private String url = "jdbc:mysql://localhost:3306/ejemplo";
+    private String url = "jdbc:mysql://localhost:3306/dam";
     private String[] columnas;
 
     public EjemploTable() {
@@ -61,7 +61,7 @@ public class EjemploTable extends javax.swing.JFrame implements TableModelListen
         try (Connection con = DriverManager.getConnection(url, "root", "")) {
             //ahora recuperao los metadatos de la tabla
             try (Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-                String sql = "SELECT * FROM tabla1";
+                String sql = "SELECT * FROM alumnos";
                 try (ResultSet rs = st.executeQuery(sql)) {
                     ResultSetMetaData rsmd = rs.getMetaData(); //recupero los metadatos de la tabla1
 
