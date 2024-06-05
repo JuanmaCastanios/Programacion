@@ -141,7 +141,8 @@ public class LecturaEscrituraTexto1 extends javax.swing.JFrame {
             //Grabamos texto
             
             
-            bw.write(this.resultado.getText() + "\n");
+            bw.write(this.resultado.getText());
+            bw.newLine();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error al escribir en el fichero", "Grabacion Fichero", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {

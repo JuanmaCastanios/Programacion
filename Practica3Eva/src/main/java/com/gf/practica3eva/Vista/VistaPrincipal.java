@@ -1,22 +1,54 @@
 
 package com.gf.practica3eva.Vista;
 
+import com.gf.practica3eva.Conexion.Conexion;
+import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
- *
- * @author bladiaju
+ * Ventana principal de la aplicacion
+ * @author Juan Jose Blanco Diaz y Alejandro Francos Fernandez
+ * @since 04-06-2024
+ * @version 1.0
  */
 public class VistaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form SeleccionUsuario
      */
+    
+    private Conexion conexion = new Conexion();
+    
+    public Conexion getConexion() {
+        return conexion;
+    }
+
+    public void setConexion(Conexion conexion) {
+        this.conexion = conexion;
+    }
+    
+    private SeleccionUsuario su;
+    
     public VistaPrincipal() {
         initComponents();
         setFrame();
     }
     
     private void setFrame(){
-        
+        this.setTitle("Gestor Base de Datos");
+        this.setLocationRelativeTo(null);
+        this.setSize(525,300);
+        this.setResizable(false);
+        btn_desc.setMnemonic('D');
+        btn_desc.setToolTipText("Pulsa para mostrar la información de la tabla seleccionada");
+        item_mysql.setMnemonic('M');
+        item_oracle.setMnemonic('O');
+        item_salir.setMnemonic('S');
+        lista_tablas.setToolTipText("Selecciona una tabla");
+        lista_basedatos.setToolTipText("Selecciona una base de datos");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
     }
     
     /**
@@ -34,9 +66,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lista_basedatos = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lista_tablas = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu_SG = new javax.swing.JMenu();
         item_mysql = new javax.swing.JMenuItem();
@@ -45,32 +79,53 @@ public class VistaPrincipal extends javax.swing.JFrame {
         item_salir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        btn_desc.setMnemonic('E');
+        btn_desc.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btn_desc.setText("Ejecutar DESC");
+        btn_desc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_descActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_desc, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
+        lista_basedatos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lista_basedatos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lista_basedatos.setToolTipText("");
         jScrollPane1.setViewportView(lista_basedatos);
 
         jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Base de Datos");
+        jPanel3.add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.LINE_START);
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
+        lista_tablas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lista_tablas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lista_tablas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(lista_tablas);
 
         jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Tablas");
+        jPanel4.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
@@ -78,17 +133,30 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         menu_SG.setText("SSDB");
 
-        item_mysql.setText("MySQL");
+        item_mysql.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        item_mysql.setText("Abrir MySQL");
+        item_mysql.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_mysqlActionPerformed(evt);
+            }
+        });
         menu_SG.add(item_mysql);
 
-        item_oracle.setText("Oracle");
+        item_oracle.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        item_oracle.setText("Abrir Oracle");
         menu_SG.add(item_oracle);
 
         jMenuBar1.add(menu_SG);
 
         menu_app.setText("Aplicacion");
 
+        item_salir.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         item_salir.setText("Salir");
+        item_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_salirActionPerformed(evt);
+            }
+        });
         menu_app.add(item_salir);
 
         jMenuBar1.add(menu_app);
@@ -97,6 +165,22 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void item_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_salirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_item_salirActionPerformed
+
+    private void item_mysqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_mysqlActionPerformed
+        su = new SeleccionUsuario(this);
+        su.setVisible(true);
+    }//GEN-LAST:event_item_mysqlActionPerformed
+
+    private void btn_descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_descActionPerformed
+        try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
+            System.out.println(conn.getMetaData());
+        } catch (SQLException ex) {
+        }
+    }//GEN-LAST:event_btn_descActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,7 +193,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -139,6 +223,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem item_mysql;
     private javax.swing.JMenuItem item_oracle;
     private javax.swing.JMenuItem item_salir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -151,4 +237,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menu_SG;
     private javax.swing.JMenu menu_app;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -2,10 +2,8 @@
 
 package com.gf.practica3eva;
 
-import com.gf.practica3eva.Conexion.Conexion;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.gf.practica3eva.Vista.VistaPrincipal;
+
 
 /**
  *  Programa para ejecutar el comando de SQL DESC tabla y mostrar su resultado
@@ -16,7 +14,8 @@ import java.util.logging.Logger;
 public class Practica3Eva {
     
     public static void main(String[] args) {
-       
+       VistaPrincipal vp = new VistaPrincipal();
+       vp.setVisible(true);
     }
     
     

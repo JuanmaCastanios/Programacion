@@ -23,8 +23,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.DecimalFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,8 +73,7 @@ public class Ventana extends javax.swing.JFrame {
     }
     
     private void escrituraCSV() throws IOException{
-        try (ICSVWriter cw = new CSVWriterBuilder(
-            new FileWriter(".\\src\\main\\java\\com\\gf\\encuesta\\ficheros\\encuesta.csv" , true)).withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER).withSeparator(';').withLineEnd(CSVWriter.DEFAULT_LINE_END).build()){
+        try (ICSVWriter cw = new CSVWriterBuilder(new FileWriter(".\\src\\main\\java\\com\\gf\\encuesta\\ficheros\\encuesta.csv" , true)).withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER).withSeparator(';').withLineEnd(CSVWriter.DEFAULT_LINE_END).build()){
             if(rboton_si.isSelected()){
                 ++votosSi;
             } else if(rboton_no.isSelected()){

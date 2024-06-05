@@ -68,7 +68,7 @@ public class LecturaCSV {
     }
     
     public static void main(String[] args)  {
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Ejercicios\\Programacion\\EjerciciosMaven\\src\\main\\java\\Tema8\\Ejemplos\\FicherosCSV\\Ficheros\\DatosCSV.csv"))){
+        try (BufferedReader br = new BufferedReader(new FileReader(".\\src\\main\\java\\Tema8\\Ejemplos\\FicherosCSV\\Ficheros\\DatosCSV.csv"))){
             System.out.println("Lecturas CSV linea a linea con Parser");
             System.out.println("-------------------------------------");
             lecturaLineaParser(br);

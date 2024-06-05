@@ -120,7 +120,7 @@ public class LecturaEscrituraBinario1 extends javax.swing.JFrame {
             Random gen = new Random();
             eof = false;
             while(!eof){
-                this.resultado.append(dis.readDouble() + "\n");
+                this.resultado.append(dis.readDouble()+ "\n");
                 cont++;
             }
             JOptionPane.showMessageDialog(this, "Proceso finalizado correctamente", "Grabacion Fichero", JOptionPane.INFORMATION_MESSAGE);

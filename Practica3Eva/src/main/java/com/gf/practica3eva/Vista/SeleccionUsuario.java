@@ -1,22 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.gf.practica3eva.Vista;
 
+import com.gf.practica3eva.Conexion.Conexion;
+import java.awt.Toolkit;
+import javax.swing.DefaultComboBoxModel;
+
 /**
- *
- * @author bladiaju
+ * Ventana para elegir usuario de la base de datos
+ * @author Juan Jose Blanco Diaz y Alejandro Francos Fernandez
+ * @since 04-06-2024
+ * @version 1.0
  */
 public class SeleccionUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form Vista
      */
-    public SeleccionUsuario() {
+    
+    private DefaultComboBoxModel <String> modeloTipo = new DefaultComboBoxModel();
+    private static VistaPrincipal vp;
+    
+    
+    public SeleccionUsuario(VistaPrincipal parent) {
+        this.vp = parent;
         initComponents();
+        setFrame();
     }
-
+    
+    private void setFrame(){
+        this.setTitle("Selector Ususario");
+        this.setLocationRelativeTo(null);
+        this.setSize(525,230);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        modeloTipo.addElement("MySQL");
+        modeloTipo.addElement("Oracle");
+        selector_tipo.setModel(modeloTipo);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +48,127 @@ public class SeleccionUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        selector_tipo = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        texto_usuario = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        texto_contrasena = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        texto_hostname = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        texto_puerto = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        btn_conectar = new javax.swing.JButton();
+        btn_cerrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+
+        jPanel2.setLayout(new java.awt.BorderLayout(63, 0));
+
+        jPanel2.add(selector_tipo, java.awt.BorderLayout.CENTER);
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("   Tipo");
+        jPanel2.add(jLabel5, java.awt.BorderLayout.LINE_START);
+
+        jPanel1.add(jPanel2);
+
+        jPanel3.setLayout(new java.awt.BorderLayout(38, 0));
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("   Usuario:");
+        jPanel3.add(jLabel1, java.awt.BorderLayout.LINE_START);
+
+        texto_usuario.setText("root");
+        jPanel3.add(texto_usuario, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel3);
+
+        jPanel4.setLayout(new java.awt.BorderLayout(10, 0));
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setText("   Contraseña:");
+        jPanel4.add(jLabel2, java.awt.BorderLayout.LINE_START);
+        jPanel4.add(texto_contrasena, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel4);
+
+        jPanel5.setLayout(new java.awt.BorderLayout(18, 0));
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("   Hostname:");
+        jPanel5.add(jLabel3, java.awt.BorderLayout.LINE_START);
+
+        texto_hostname.setText("localhost");
+        jPanel5.add(texto_hostname, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel5);
+
+        jPanel6.setLayout(new java.awt.BorderLayout(45, 0));
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel4.setText("   Puerto:");
+        jPanel6.add(jLabel4, java.awt.BorderLayout.LINE_START);
+
+        texto_puerto.setText("3306");
+        jPanel6.add(texto_puerto, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel6);
+
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btn_conectar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btn_conectar.setText("Conectar");
+        btn_conectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_conectarActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btn_conectar);
+
+        btn_cerrar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btn_cerrar.setText("Cerrar");
+        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrarActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btn_cerrar);
+
+        jPanel1.add(jPanel7);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_conectarActionPerformed
+        Conexion conn = new Conexion();
+        conn.setTipo(String.valueOf(selector_tipo.getSelectedItem()));
+        conn.setUser(texto_usuario.getText());
+        conn.setPassword(texto_contrasena.getText());
+        conn.setHostname(texto_hostname.getText());
+        conn.setPuerto(texto_puerto.getText());
+        conn.setUrl();
+        vp.setConexion(conn);
+        this.dispose();
+    }//GEN-LAST:event_btn_conectarActionPerformed
+
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_cerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -53,7 +181,7 @@ public class SeleccionUsuario extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -79,11 +207,30 @@ public class SeleccionUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SeleccionUsuario().setVisible(true);
+                new SeleccionUsuario(vp).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cerrar;
+    private javax.swing.JButton btn_conectar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JComboBox selector_tipo;
+    private javax.swing.JTextField texto_contrasena;
+    private javax.swing.JTextField texto_hostname;
+    private javax.swing.JTextField texto_puerto;
+    private javax.swing.JTextField texto_usuario;
     // End of variables declaration//GEN-END:variables
 }
