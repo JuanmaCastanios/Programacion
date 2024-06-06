@@ -1,5 +1,5 @@
 
-package com.gf.practica3eva.Vista;
+package com.gf.practica3eva.Vistas;
 
 import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;

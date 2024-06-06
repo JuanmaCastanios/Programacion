@@ -1,5 +1,5 @@
 
-package com.gf.practica3eva.Vista;
+package com.gf.practica3eva.Vistas;
 
 import com.gf.practica3eva.Conexion.Conexion;
 import java.awt.Toolkit;

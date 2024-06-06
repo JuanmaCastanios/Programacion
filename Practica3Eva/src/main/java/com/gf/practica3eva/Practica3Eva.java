@@ -2,7 +2,7 @@
 
 package com.gf.practica3eva;
 
-import com.gf.practica3eva.Vista.VistaPrincipal;
+import com.gf.practica3eva.Vistas.VistaPrincipal;
 
 
 /**
