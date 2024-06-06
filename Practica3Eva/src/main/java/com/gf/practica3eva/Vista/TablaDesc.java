@@ -1,6 +1,7 @@
 
 package com.gf.practica3eva.Vista;
 
+import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,8 +21,17 @@ public class TablaDesc extends javax.swing.JDialog {
         this.vp = parent;
         initComponents();
         setTabla();
+        setFrame();
     }
 
+    private void setFrame(){
+        this.setTitle("Consulta DESC");
+        this.setLocationRelativeTo(null);
+        this.setSize(800,300);
+        this.setResizable(false);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
+    }
+    
     private void setTabla() {
         this.tablaDatos.setModel(new DefaultTableModel(vp.recogerDatos(), vp.setColumnas()));
     }

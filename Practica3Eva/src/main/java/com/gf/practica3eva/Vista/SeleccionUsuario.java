@@ -90,8 +90,6 @@ public class SeleccionUsuario extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("   Usuario:");
         jPanel3.add(jLabel1, java.awt.BorderLayout.LINE_START);
-
-        texto_usuario.setText("root");
         jPanel3.add(texto_usuario, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel3);
@@ -111,8 +109,6 @@ public class SeleccionUsuario extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("   Hostname:");
         jPanel5.add(jLabel3, java.awt.BorderLayout.LINE_START);
-
-        texto_hostname.setText("localhost");
         jPanel5.add(texto_hostname, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel5);

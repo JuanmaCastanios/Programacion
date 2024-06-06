@@ -188,7 +188,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Base de Datos");
+        jLabel1.setText("Bases de Datos");
         jPanel3.add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.LINE_START);
@@ -257,6 +257,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_salirActionPerformed
 
     private void item_mysqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_mysqlActionPerformed
+        modeloDB = new DefaultListModel();
         su = new SeleccionUsuario(this, true);
         su.selector_tipo.setSelectedItem("MySQL");
         su.texto_puerto.setText("3306");
@@ -272,6 +273,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_descActionPerformed
 
     private void item_oracleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_oracleActionPerformed
+        modeloDB = new DefaultListModel();
         su = new SeleccionUsuario(this, true);
         su.selector_tipo.setSelectedItem("Oracle");
         su.texto_puerto.setText("1521");
