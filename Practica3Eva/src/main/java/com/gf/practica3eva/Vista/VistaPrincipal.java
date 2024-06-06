@@ -6,7 +6,9 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.DefaultListModel;
 
 /**
@@ -21,9 +23,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
      * Creates new form SeleccionUsuario
      */
     
+    private ResultSetMetaData rsmd;
     private SeleccionUsuario su;
+    private TablaDesc td;
     private Conexion conexion = new Conexion();
     private DefaultListModel modeloDB = new DefaultListModel();
+    private DefaultListModel modeloTablas = new DefaultListModel();
     
     public Conexion getConexion() {
         return conexion;
@@ -51,6 +56,75 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lista_tablas.setToolTipText("Selecciona una tabla");
         lista_basedatos.setToolTipText("Selecciona una base de datos");
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
+    }
+    private void mostrarBD(){
+        try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
+            try (ResultSet catalogs = conn.getMetaData().getCatalogs()) {
+               int cont = 0;
+                while (catalogs.next()) {
+                    modeloDB.add(cont, catalogs.getString(1));
+                    cont++;
+                }
+                lista_basedatos.setModel(modeloDB);
+            }
+        } catch (SQLException ex) {
+        }
+    }
+    
+    private void mostrarTablas(){
+        try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
+            try (ResultSet tablas = conn.getMetaData().getTables(conexion.getBaseDatos(), null, "%", new String[] {"TABLE"})) {
+               int cont = 0;
+                while (tablas.next()) {
+                    modeloTablas.add(cont, tablas.getString("TABLE_NAME"));
+                    cont++;
+                }
+                lista_tablas.setModel(modeloTablas);
+            }
+        } catch (SQLException ex) {
+        }
+    }
+    
+    protected Object[][] recogerDatos(){
+        Object[][] datos = null;
+        try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
+            try (Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                String sql = "DESC " + lista_tablas.getSelectedValue();       
+                try (ResultSet rs = st.executeQuery(sql)){
+                    rsmd = rs.getMetaData();
+                   
+                    rs.last();
+                    int numCols = rsmd.getColumnCount();
+                    int numFils = rs.getRow();
+
+                    datos = new Object[numFils][numCols];
+                    setColumnas();
+                    int j = 0;
+                    rs.beforeFirst();
+                    while (rs.next()) {
+                        for (int i = 0; i < numCols; i++) {
+                            datos[j][i] = rs.getObject(i + 1);
+                        }
+                        j++;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+        }
+        return datos;
+    }
+    
+    protected String[] setColumnas() {
+        String[] columnas = {};
+        try {
+            columnas=new String[rsmd.getColumnCount()];
+            for(int i=1;i<=rsmd.getColumnCount();i++){
+                columnas[i-1]=rsmd.getColumnLabel(i);
+            }
+        } catch (SQLException ex) {
+
+        }
+        return columnas;
     }
     
     /**
@@ -103,6 +177,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lista_basedatos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lista_basedatos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lista_basedatos.setToolTipText("");
+        lista_basedatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lista_basedatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(lista_basedatos);
 
         jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -146,6 +225,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         item_oracle.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         item_oracle.setText("Abrir Oracle");
+        item_oracle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_oracleActionPerformed(evt);
+            }
+        });
         menu_SG.add(item_oracle);
 
         jMenuBar1.add(menu_SG);
@@ -173,23 +257,35 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_salirActionPerformed
 
     private void item_mysqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_mysqlActionPerformed
-        su = new SeleccionUsuario(this);
+        su = new SeleccionUsuario(this, true);
+        su.selector_tipo.setSelectedItem("MySQL");
+        su.texto_puerto.setText("3306");
+        su.setAlwaysOnTop(true);
         su.setVisible(true);
+        mostrarBD();
     }//GEN-LAST:event_item_mysqlActionPerformed
 
     private void btn_descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_descActionPerformed
-        try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
-            try (ResultSet catalogs = conn.getMetaData().getCatalogs()) {
-               int cont = 0;
-                while (catalogs.next()) {
-                    modeloDB.add(cont, catalogs.getString(1));
-                    cont++;
-                }
-                lista_basedatos.setModel(modeloDB);
-            }
-        } catch (SQLException ex) {
-        }
+        td = new TablaDesc(this, true);
+        td.setAlwaysOnTop(true);
+        td.setVisible(true);
     }//GEN-LAST:event_btn_descActionPerformed
+
+    private void item_oracleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_oracleActionPerformed
+        su = new SeleccionUsuario(this, true);
+        su.selector_tipo.setSelectedItem("Oracle");
+        su.texto_puerto.setText("1521");
+        su.setAlwaysOnTop(true);
+        su.setVisible(true);
+        mostrarBD();
+    }//GEN-LAST:event_item_oracleActionPerformed
+
+    private void lista_basedatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_basedatosMouseClicked
+        modeloTablas = new DefaultListModel();
+        conexion.setBaseDatos(lista_basedatos.getSelectedValue());
+        conexion.setUrl();
+        mostrarTablas();
+    }//GEN-LAST:event_lista_basedatosMouseClicked
 
     /**
      * @param args the command line arguments

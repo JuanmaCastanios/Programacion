@@ -20,6 +20,7 @@ public class Conexion {
     private String hostname;
     private String puerto;
     private String tipo;
+    private String baseDatos = "";
     
     public Connection getConexion() throws SQLException  {
         conexion = DriverManager.getConnection(url, user, password);
@@ -69,9 +70,17 @@ public class Conexion {
     public String getUrl() {
         return url;
     }
-
+    
     public void setUrl() {
-        this.url = "jdbc:" + tipo.toLowerCase() + "://"+ hostname.toLowerCase() + ":" + puerto + "/";
+        this.url = "jdbc:" + tipo.toLowerCase() + "://"+ hostname.toLowerCase() + ":" + puerto + "/" + baseDatos;
+    }
+
+    public String getBaseDatos() {
+        return baseDatos;
+    }
+
+    public void setBaseDatos(String baseDatos) {
+        this.baseDatos = baseDatos;
     }
     
 }

@@ -11,7 +11,7 @@ import javax.swing.DefaultComboBoxModel;
  * @since 04-06-2024
  * @version 1.0
  */
-public class SeleccionUsuario extends javax.swing.JFrame {
+public class SeleccionUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form Vista
@@ -21,7 +21,8 @@ public class SeleccionUsuario extends javax.swing.JFrame {
     private static VistaPrincipal vp;
     
     
-    public SeleccionUsuario(VistaPrincipal parent) {
+    public SeleccionUsuario(VistaPrincipal parent, boolean modal) {
+        super(parent, modal);
         this.vp = parent;
         initComponents();
         setFrame();
@@ -68,7 +69,7 @@ public class SeleccionUsuario extends javax.swing.JFrame {
         btn_conectar = new javax.swing.JButton();
         btn_cerrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.GridLayout(0, 1));
 
@@ -121,8 +122,6 @@ public class SeleccionUsuario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setText("   Puerto:");
         jPanel6.add(jLabel4, java.awt.BorderLayout.LINE_START);
-
-        texto_puerto.setText("3306");
         jPanel6.add(texto_puerto, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel6);
@@ -207,7 +206,7 @@ public class SeleccionUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SeleccionUsuario(vp).setVisible(true);
+                new SeleccionUsuario(vp, true).setVisible(true);
             }
         });
     }
@@ -227,10 +226,10 @@ public class SeleccionUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JComboBox selector_tipo;
+    protected javax.swing.JComboBox selector_tipo;
     private javax.swing.JTextField texto_contrasena;
     private javax.swing.JTextField texto_hostname;
-    private javax.swing.JTextField texto_puerto;
+    protected javax.swing.JTextField texto_puerto;
     private javax.swing.JTextField texto_usuario;
     // End of variables declaration//GEN-END:variables
 }
