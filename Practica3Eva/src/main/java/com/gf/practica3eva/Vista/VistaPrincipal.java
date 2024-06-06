@@ -5,7 +5,9 @@ import com.gf.practica3eva.Conexion.Conexion;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.DefaultListModel;
 
 /**
  * Ventana principal de la aplicacion
@@ -19,7 +21,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
      * Creates new form SeleccionUsuario
      */
     
+    private SeleccionUsuario su;
     private Conexion conexion = new Conexion();
+    private DefaultListModel modeloDB = new DefaultListModel();
     
     public Conexion getConexion() {
         return conexion;
@@ -28,8 +32,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public void setConexion(Conexion conexion) {
         this.conexion = conexion;
     }
-    
-    private SeleccionUsuario su;
     
     public VistaPrincipal() {
         initComponents();
@@ -177,7 +179,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void btn_descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_descActionPerformed
         try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
-            System.out.println(conn.getMetaData());
+            try (ResultSet catalogs = conn.getMetaData().getCatalogs()) {
+               int cont = 0;
+                while (catalogs.next()) {
+                    modeloDB.add(cont, catalogs.getString(1));
+                    cont++;
+                }
+                lista_basedatos.setModel(modeloDB);
+            }
         } catch (SQLException ex) {
         }
     }//GEN-LAST:event_btn_descActionPerformed
