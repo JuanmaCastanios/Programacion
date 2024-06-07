@@ -285,7 +285,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void lista_basedatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_basedatosMouseClicked
         modeloTablas = new DefaultListModel();
         conexion.setBaseDatos(lista_basedatos.getSelectedValue());
-        conexion.setUrl();
+        conexion.setUrl(conexion.getTipo());
         mostrarTablas();
     }//GEN-LAST:event_lista_basedatosMouseClicked
 

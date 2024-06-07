@@ -23,7 +23,7 @@ public class Conexion {
     private String baseDatos = "";
     
     public Connection getConexion() throws SQLException  {
-        conexion = DriverManager.getConnection(url, user, password);
+        conexion = DriverManager.getConnection(url, user + " as sysdba", password);
         return conexion;
     }
 
@@ -71,8 +71,12 @@ public class Conexion {
         return url;
     }
     
-    public void setUrl() {
-        this.url = "jdbc:" + tipo.toLowerCase() + "://"+ hostname.toLowerCase() + ":" + puerto + "/" + baseDatos;
+    public void setUrl(String cadena) {
+        if(cadena.equals("MySQL")){
+            this.url = "jdbc:" + tipo.toLowerCase() + "://"+ hostname.toLowerCase() + ":" + puerto + "/" + baseDatos;
+        } else {
+            this.url = "jdbc:" + tipo.toLowerCase() + ":thin:@//"+ hostname.toLowerCase() + ":" + puerto + "/ORCLCDB".toUpperCase() + baseDatos;
+        }
     }
 
     public String getBaseDatos() {

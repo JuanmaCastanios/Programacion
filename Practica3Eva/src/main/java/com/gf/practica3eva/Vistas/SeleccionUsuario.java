@@ -156,7 +156,12 @@ public class SeleccionUsuario extends javax.swing.JDialog {
         conn.setPassword(texto_contrasena.getText());
         conn.setHostname(texto_hostname.getText());
         conn.setPuerto(texto_puerto.getText());
-        conn.setUrl();
+        if(this.selector_tipo.getSelectedItem().equals("MySQL")){
+            conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
+        } else {
+            conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
+            System.out.println(conn.getUrl());
+        }
         vp.setConexion(conn);
         this.dispose();
     }//GEN-LAST:event_btn_conectarActionPerformed
