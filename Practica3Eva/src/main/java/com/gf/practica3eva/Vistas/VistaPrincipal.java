@@ -3,6 +3,8 @@ package com.gf.practica3eva.Vistas;
 
 import com.gf.practica3eva.Conexion.Conexion;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,7 +19,7 @@ import javax.swing.DefaultListModel;
  * @since 04-06-2024
  * @version 1.0
  */
-public class VistaPrincipal extends javax.swing.JFrame {
+public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
 
     /**
      * Creates new form SeleccionUsuario
@@ -56,7 +58,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lista_tablas.setToolTipText("Selecciona una tabla");
         lista_basedatos.setToolTipText("Selecciona una base de datos");
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
+        setKeyListener();
     }
+    
+    private void setKeyListener(){
+        this.lista_basedatos.addKeyListener(this);
+        this.lista_tablas.addKeyListener(this);
+        this.btn_desc.addKeyListener(this);
+    }
+    
     private void mostrarBD(){
         try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
             try (ResultSet catalogs = conn.getMetaData().getCatalogs()) {
@@ -127,6 +137,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return columnas;
     }
     
+    private void generarTabla(){
+        td = new TablaDesc(this, true);
+        td.setAlwaysOnTop(true);
+        td.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -267,9 +282,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_mysqlActionPerformed
 
     private void btn_descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_descActionPerformed
-        td = new TablaDesc(this, true);
-        td.setAlwaysOnTop(true);
-        td.setVisible(true);
+        generarTabla();
     }//GEN-LAST:event_btn_descActionPerformed
 
     private void item_oracleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_oracleActionPerformed
@@ -344,6 +357,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menu_SG;
     private javax.swing.JMenu menu_app;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            generarTabla();
+        }
+       else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.exit(0);
+       }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     
 }

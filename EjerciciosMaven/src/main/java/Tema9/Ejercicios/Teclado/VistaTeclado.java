@@ -1,7 +1,7 @@
 
 package Tema9.Ejercicios.Teclado;
 
-import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -54,7 +54,8 @@ public class VistaTeclado extends javax.swing.JFrame {
         ControladorVentana controlador = new ControladorVentana(this);
         this.campo_texto.addKeyListener(controlador);
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

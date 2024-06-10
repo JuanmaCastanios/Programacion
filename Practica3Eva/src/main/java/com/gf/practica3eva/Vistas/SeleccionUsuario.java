@@ -3,6 +3,8 @@ package com.gf.practica3eva.Vistas;
 
 import com.gf.practica3eva.Conexion.Conexion;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.DefaultComboBoxModel;
  * @since 04-06-2024
  * @version 1.0
  */
-public class SeleccionUsuario extends javax.swing.JDialog {
+public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener{
 
     /**
      * Creates new form Vista
@@ -36,8 +38,40 @@ public class SeleccionUsuario extends javax.swing.JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         modeloTipo.addElement("MySQL");
         modeloTipo.addElement("Oracle");
+        selector_tipo.setToolTipText("Selecciona el tipo de base de datos");
+        texto_usuario.setToolTipText("Escribe el usuario de la base de datos");
+        texto_contrasena.setToolTipText("Escribe la contraseña de la base de datos");
+        texto_hostname.setToolTipText("Escribe el hostname de la base de datos");
+        texto_puerto.setToolTipText("Escribe el puerto de la base de datos");
         selector_tipo.setModel(modeloTipo);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
+        setKeyListener();
+    }
+    private void setKeyListener(){
+        this.btn_conectar.addKeyListener(this);
+        this.btn_cerrar.addKeyListener(this);
+        this.texto_contrasena.addKeyListener(this);
+        this.texto_hostname.addKeyListener(this);
+        this.texto_puerto.addKeyListener(this);
+        this.texto_usuario.addKeyListener(this);
+        this.selector_tipo.addKeyListener(this);
+    }
+    
+    private void realizarConexion(){
+        Conexion conn = new Conexion();
+        conn.setTipo(String.valueOf(selector_tipo.getSelectedItem()));
+        conn.setUser(texto_usuario.getText());
+        conn.setPassword(texto_contrasena.getText());
+        conn.setHostname(texto_hostname.getText());
+        conn.setPuerto(texto_puerto.getText());
+        if(this.selector_tipo.getSelectedItem().equals("MySQL")){
+            conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
+        } else {
+            conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
+            System.out.println(conn.getUrl());
+        }
+        vp.setConexion(conn);
+        this.dispose();
     }
     
     /**
@@ -150,20 +184,7 @@ public class SeleccionUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_conectarActionPerformed
-        Conexion conn = new Conexion();
-        conn.setTipo(String.valueOf(selector_tipo.getSelectedItem()));
-        conn.setUser(texto_usuario.getText());
-        conn.setPassword(texto_contrasena.getText());
-        conn.setHostname(texto_hostname.getText());
-        conn.setPuerto(texto_puerto.getText());
-        if(this.selector_tipo.getSelectedItem().equals("MySQL")){
-            conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
-        } else {
-            conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
-            System.out.println(conn.getUrl());
-        }
-        vp.setConexion(conn);
-        this.dispose();
+        realizarConexion();
     }//GEN-LAST:event_btn_conectarActionPerformed
 
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
@@ -233,4 +254,24 @@ public class SeleccionUsuario extends javax.swing.JDialog {
     protected javax.swing.JTextField texto_puerto;
     private javax.swing.JTextField texto_usuario;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            realizarConexion();
+        }
+       else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            this.dispose();
+       }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
