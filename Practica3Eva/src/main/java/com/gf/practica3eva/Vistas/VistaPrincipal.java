@@ -25,17 +25,25 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
      * Creates new form SeleccionUsuario
      */
     
-    private ResultSetMetaData rsmd;
-    private SeleccionUsuario su;
-    private TablaDesc td;
-    private Conexion conexion = new Conexion();
-    private DefaultListModel modeloDB = new DefaultListModel();
-    private DefaultListModel modeloTablas = new DefaultListModel();
+    private ResultSetMetaData rsmd; //Metadatos de la consulta
+    private SeleccionUsuario su; //Ventana de recogida de datos
+    private TablaDesc td; //Ventana de la tabla
+    private Conexion conexion = new Conexion(); //Objeto que realiza la conexion
+    private DefaultListModel modeloDB = new DefaultListModel(); //Modelo por defecto de la lista de bases de datos
+    private DefaultListModel modeloTablas = new DefaultListModel(); //Modelo por defecto de la lista de tablas
     
+    /**
+     * getConexion obtiene la conexion con la base de datos
+     * @return Conexion con base de datos
+     */
     public Conexion getConexion() {
         return conexion;
     }
-
+    
+    /**
+     * setConexion establece la conexion de la base de datos
+     * @param conexion Conexion base de datos
+     */
     public void setConexion(Conexion conexion) {
         this.conexion = conexion;
     }
@@ -45,6 +53,9 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         setFrame();
     }
     
+    /**
+     * setFrame establece parametros para el inicio de la ventana
+     */
     private void setFrame(){
         this.setTitle("Gestor Base de Datos");
         this.setLocationRelativeTo(null);
@@ -61,12 +72,18 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         setKeyListener();
     }
     
+    /**
+     * setKeyListener establece en todos los elementos los eventos de teclado
+     */
     private void setKeyListener(){
         this.lista_basedatos.addKeyListener(this);
         this.lista_tablas.addKeyListener(this);
         this.btn_desc.addKeyListener(this);
     }
     
+    /**
+     * mostrarBD muestra el listado de las bases de datos de la conexion
+     */
     private void mostrarBD(){
         try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
             try (ResultSet catalogs = conn.getMetaData().getCatalogs()) {
@@ -81,6 +98,9 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         }
     }
     
+    /**
+     * mostrarTablas muestra las tablas que forman parte de la base de datos seleccionada
+     */
     private void mostrarTablas(){
         try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
             try (ResultSet tablas = conn.getMetaData().getTables(conexion.getBaseDatos(), null, "%", new String[] {"TABLE"})) {
@@ -95,6 +115,10 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         }
     }
     
+    /**
+     * recogerDatos recoge los datos de la consulta DESC
+     * @return Matriz con los datos de la consulta
+     */
     protected Object[][] recogerDatos(){
         Object[][] datos = null;
         try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
@@ -124,6 +148,10 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         return datos;
     }
     
+    /**
+     * setColumnas recoge el nombre de las columnas de los metadatos de la consulta para establecerlo en la tabla
+     * @return Array de los nombre de las columnas
+     */
     protected String[] setColumnas() {
         String[] columnas = {};
         try {
@@ -137,6 +165,9 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         return columnas;
     }
     
+    /**
+     * generarTabla genera una ventana con la tabla DESC
+     */
     private void generarTabla(){
         td = new TablaDesc(this, true);
         td.setAlwaysOnTop(true);
@@ -230,7 +261,7 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         menu_SG.setText("SSDB");
 
         item_mysql.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        item_mysql.setText("Abrir MySQL");
+        item_mysql.setText("Conectar MySQL");
         item_mysql.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 item_mysqlActionPerformed(evt);
@@ -239,7 +270,7 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         menu_SG.add(item_mysql);
 
         item_oracle.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        item_oracle.setText("Abrir Oracle");
+        item_oracle.setText("Conectar Oracle");
         item_oracle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 item_oracleActionPerformed(evt);
@@ -272,8 +303,8 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
     }//GEN-LAST:event_item_salirActionPerformed
 
     private void item_mysqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_mysqlActionPerformed
-        modeloDB = new DefaultListModel();
-        su = new SeleccionUsuario(this, true);
+        modeloDB = new DefaultListModel(); //Vacia la lista
+        su = new SeleccionUsuario(this, true); //Crea la ventana de recogida de datos
         su.selector_tipo.setSelectedItem("MySQL");
         su.texto_puerto.setText("3306");
         su.setAlwaysOnTop(true);
@@ -286,9 +317,9 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
     }//GEN-LAST:event_btn_descActionPerformed
 
     private void item_oracleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_oracleActionPerformed
-        modeloDB = new DefaultListModel();
-        su = new SeleccionUsuario(this, true);
-        su.selector_tipo.setSelectedItem("Oracle");
+        modeloDB = new DefaultListModel(); //Vacia la lista
+        su = new SeleccionUsuario(this, true); //Crea la ventana de recogida de datos
+        su.selector_tipo.setSelectedItem("Oracle"); 
         su.texto_puerto.setText("1521");
         su.setAlwaysOnTop(true);
         su.setVisible(true);
@@ -296,7 +327,7 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
     }//GEN-LAST:event_item_oracleActionPerformed
 
     private void lista_basedatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_basedatosMouseClicked
-        modeloTablas = new DefaultListModel();
+        modeloTablas = new DefaultListModel(); //Vacia la lista
         conexion.setBaseDatos(lista_basedatos.getSelectedValue());
         conexion.setUrl(conexion.getTipo());
         mostrarTablas();

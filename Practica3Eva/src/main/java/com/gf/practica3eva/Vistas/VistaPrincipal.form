@@ -14,7 +14,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Abrir MySQL"/>
+                <Property name="text" type="java.lang.String" value="Conectar MySQL"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_mysqlActionPerformed"/>
@@ -25,7 +25,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Abrir Oracle"/>
+                <Property name="text" type="java.lang.String" value="Conectar Oracle"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_oracleActionPerformed"/>

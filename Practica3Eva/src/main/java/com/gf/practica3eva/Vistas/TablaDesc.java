@@ -5,8 +5,10 @@ import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author juanj
+ * Ventana para mostrar la consulta DESC
+ * @author Juan Jose Blanco Diaz y Alejandro Francos Fernandez
+ * @since 04-06-2024
+ * @version 1.0
  */
 public class TablaDesc extends javax.swing.JDialog {
 
@@ -14,7 +16,7 @@ public class TablaDesc extends javax.swing.JDialog {
      * Creates new form TablaDesc
      */
     
-    private static VistaPrincipal vp;
+    private static VistaPrincipal vp; //Vista principal de la aplicacion
     
     public TablaDesc(VistaPrincipal parent, boolean modal) {
         super(parent, modal);
@@ -23,7 +25,10 @@ public class TablaDesc extends javax.swing.JDialog {
         setTabla();
         setFrame();
     }
-
+    
+    /**
+     * setFrame establece parametros para el inicio de la ventana
+     */
     private void setFrame(){
         this.setTitle("Consulta DESC");
         this.setLocationRelativeTo(null);
@@ -32,6 +37,9 @@ public class TablaDesc extends javax.swing.JDialog {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
     }
     
+    /**
+     * setTabla establece los datos recogidos de la consulta en una tabla
+     */
     private void setTabla() {
         this.tablaDatos.setModel(new DefaultTableModel(vp.recogerDatos(), vp.setColumnas()));
     }

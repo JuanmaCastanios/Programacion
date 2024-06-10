@@ -11,7 +11,7 @@ import com.gf.practica3eva.Vistas.VistaPrincipal;
  * @since 04-06-2024
  * @version 1.0
  */
-public class Practica3Eva {
+public class AppPractica3Eva {
     
     public static void main(String[] args) {
        VistaPrincipal vp = new VistaPrincipal();

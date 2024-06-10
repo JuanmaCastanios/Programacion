@@ -19,8 +19,8 @@ public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener
      * Creates new form Vista
      */
     
-    private DefaultComboBoxModel <String> modeloTipo = new DefaultComboBoxModel();
-    private static VistaPrincipal vp;
+    private DefaultComboBoxModel <String> modeloTipo = new DefaultComboBoxModel(); //Selector por defecto
+    private static VistaPrincipal vp; //Vista principal de la aplicacion
     
     
     public SeleccionUsuario(VistaPrincipal parent, boolean modal) {
@@ -30,6 +30,9 @@ public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener
         setFrame();
     }
     
+    /**
+     * setFrame establece parametros para el inicio de la ventana
+     */
     private void setFrame(){
         this.setTitle("Selector Ususario");
         this.setLocationRelativeTo(null);
@@ -47,6 +50,10 @@ public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
         setKeyListener();
     }
+    
+    /**
+     * setKeyListener establece en todos los elementos los eventos de teclado
+     */
     private void setKeyListener(){
         this.btn_conectar.addKeyListener(this);
         this.btn_cerrar.addKeyListener(this);
@@ -57,21 +64,34 @@ public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener
         this.selector_tipo.addKeyListener(this);
     }
     
+    /**
+     * realizarConexion recoge los datos necesarios para la conexion y la realiza
+     */
     private void realizarConexion(){
         Conexion conn = new Conexion();
-        conn.setTipo(String.valueOf(selector_tipo.getSelectedItem()));
-        conn.setUser(texto_usuario.getText());
-        conn.setPassword(texto_contrasena.getText());
-        conn.setHostname(texto_hostname.getText());
-        conn.setPuerto(texto_puerto.getText());
-        if(this.selector_tipo.getSelectedItem().equals("MySQL")){
+        conn.setTipo(String.valueOf(selector_tipo.getSelectedItem())); //Eleccion del tipo de base de datos
+        conn.setUser(texto_usuario.getText()); //Recogida de usuario
+        conn.setPassword(texto_contrasena.getText()); //Recogida de contraseña
+        conn.setHostname(texto_hostname.getText()); //Recogida de hostname
+        conn.setPuerto(texto_puerto.getText()); //Recogida de puerto
+        if(this.selector_tipo.getSelectedItem().equals("MySQL")){ //Si la base de datos es MySQL
             conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
-        } else {
+        } else { //Si la base de datos es Oracle
             conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
             System.out.println(conn.getUrl());
         }
         vp.setConexion(conn);
         this.dispose();
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent e) {
+       if(e.getKeyCode() == KeyEvent.VK_ENTER){ //Si pulsas Enter realizas la conexion
+            realizarConexion();
+        }
+       else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){ //Si pulsas escape se cierra la aplicacion
+            this.dispose();
+       }
     }
     
     /**
@@ -258,16 +278,6 @@ public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener
     @Override
     public void keyTyped(KeyEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-       if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            realizarConexion();
-        }
-       else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            this.dispose();
-       }
     }
 
     @Override
