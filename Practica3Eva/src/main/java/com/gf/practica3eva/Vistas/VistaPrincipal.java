@@ -116,6 +116,15 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
     }
     
     /**
+     * generarTabla genera una ventana con la tabla DESC
+     */
+    private void generarTabla(){
+        td = new TablaDesc(this, true);
+        td.setAlwaysOnTop(true);
+        td.setVisible(true);
+    }
+    
+    /**
      * recogerDatos recoge los datos de la consulta DESC
      * @return Matriz con los datos de la consulta
      */
@@ -123,10 +132,11 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         Object[][] datos = null;
         try(Connection conn = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword())){
             try (Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-                String sql = "DESC " + lista_tablas.getSelectedValue();       
+                String sql = "DESC " + lista_tablas.getSelectedValue();
+                
                 try (ResultSet rs = st.executeQuery(sql)){
                     rsmd = rs.getMetaData();
-                   
+                    
                     rs.last();
                     int numCols = rsmd.getColumnCount();
                     int numFils = rs.getRow();
@@ -161,18 +171,22 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
             }
         } catch (SQLException ex) {
 
+        } catch (NullPointerException ex){
+            
         }
         return columnas;
     }
     
-    /**
-     * generarTabla genera una ventana con la tabla DESC
-     */
-    private void generarTabla(){
-        td = new TablaDesc(this, true);
-        td.setAlwaysOnTop(true);
-        td.setVisible(true);
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            generarTabla();
+        }
+       else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.exit(0);
+       }
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,7 +317,11 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
     }//GEN-LAST:event_item_salirActionPerformed
 
     private void item_mysqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_mysqlActionPerformed
+        conexion.setUrl("");
         modeloDB = new DefaultListModel(); //Vacia la lista
+        this.lista_basedatos.setModel(modeloDB);
+        modeloTablas = new DefaultListModel(); //Vacia la lista
+        this.lista_tablas.setModel(modeloTablas);
         su = new SeleccionUsuario(this, true); //Crea la ventana de recogida de datos
         su.selector_tipo.setSelectedItem("MySQL");
         su.texto_puerto.setText("3306");
@@ -318,12 +336,15 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
 
     private void item_oracleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_oracleActionPerformed
         modeloDB = new DefaultListModel(); //Vacia la lista
+        this.lista_basedatos.setModel(modeloDB);
+        modeloTablas = new DefaultListModel(); //Vacia la lista
+        this.lista_tablas.setModel(modeloTablas);
         su = new SeleccionUsuario(this, true); //Crea la ventana de recogida de datos
         su.selector_tipo.setSelectedItem("Oracle"); 
         su.texto_puerto.setText("1521");
         su.setAlwaysOnTop(true);
         su.setVisible(true);
-        mostrarBD();
+        mostrarTablas();
     }//GEN-LAST:event_item_oracleActionPerformed
 
     private void lista_basedatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_basedatosMouseClicked
@@ -394,15 +415,7 @@ public class VistaPrincipal extends javax.swing.JFrame implements KeyListener{
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            generarTabla();
-        }
-       else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            System.exit(0);
-       }
-    }
+    
 
     @Override
     public void keyReleased(KeyEvent e) {

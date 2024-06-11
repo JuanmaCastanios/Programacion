@@ -2,6 +2,8 @@
 package com.gf.practica3eva.Vistas;
 
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -10,14 +12,13 @@ import javax.swing.table.DefaultTableModel;
  * @since 04-06-2024
  * @version 1.0
  */
-public class TablaDesc extends javax.swing.JDialog {
+public class TablaDesc extends javax.swing.JDialog implements KeyListener{
 
     /**
      * Creates new form TablaDesc
      */
     
     private static VistaPrincipal vp; //Vista principal de la aplicacion
-    
     public TablaDesc(VistaPrincipal parent, boolean modal) {
         super(parent, modal);
         this.vp = parent;
@@ -35,6 +36,8 @@ public class TablaDesc extends javax.swing.JDialog {
         this.setSize(800,300);
         this.setResizable(false);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/main/java/com/gf/practica3eva/Resources/icono.png"));
+        this.tablaDatos.setEnabled(false);
+        this.addKeyListener(this);
     }
     
     /**
@@ -42,6 +45,13 @@ public class TablaDesc extends javax.swing.JDialog {
      */
     private void setTabla() {
         this.tablaDatos.setModel(new DefaultTableModel(vp.recogerDatos(), vp.setColumnas()));
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){ //Si pulsas escape se cierra la aplicacion
+            this.dispose();
+        }
     }
     
     /**
@@ -121,4 +131,16 @@ public class TablaDesc extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaDatos;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -28,7 +28,7 @@ public class Conexion {
      * @throws SQLException Tratamiento de errores procedentes de la conexion con base de datos
      */
     public Connection getConexion() throws SQLException  {
-        conexion = DriverManager.getConnection(url, user + " as sysdba", password);
+        conexion = DriverManager.getConnection(url, user, password);
         return conexion;
     }
     
@@ -125,8 +125,10 @@ public class Conexion {
     public void setUrl(String cadena) {
         if(cadena.equals("MySQL")){ //Para bases de datos MySQL
             this.url = "jdbc:" + tipo.toLowerCase() + "://"+ hostname.toLowerCase() + ":" + puerto + "/" + baseDatos;
-        } else { //Para bases de datos Oracle
-            this.url = "jdbc:" + tipo.toLowerCase() + ":thin:@//"+ hostname.toLowerCase() + ":" + puerto + "/ORCLCDB".toUpperCase() + baseDatos;
+        } else if(cadena.equals("Oracle")){ //Para bases de datos Oracle
+            this.url = "jdbc:" + tipo.toLowerCase() + ":thin:@//"+ hostname.toLowerCase() + ":" + puerto + "/ORCLCDB" + baseDatos;
+        } else{
+            this.url = "";
         }
     }
     

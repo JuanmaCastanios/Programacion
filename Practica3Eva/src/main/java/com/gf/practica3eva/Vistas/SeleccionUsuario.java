@@ -78,7 +78,6 @@ public class SeleccionUsuario extends javax.swing.JDialog implements KeyListener
             conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
         } else { //Si la base de datos es Oracle
             conn.setUrl(String.valueOf(this.selector_tipo.getSelectedItem()));
-            System.out.println(conn.getUrl());
         }
         vp.setConexion(conn);
         this.dispose();

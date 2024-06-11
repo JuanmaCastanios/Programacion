@@ -14,8 +14,11 @@ import com.gf.practica3eva.Vistas.VistaPrincipal;
 public class AppPractica3Eva {
     
     public static void main(String[] args) {
-       VistaPrincipal vp = new VistaPrincipal();
-       vp.setVisible(true);
+        try {
+            VistaPrincipal vp = new VistaPrincipal();
+            vp.setVisible(true);
+        } catch (Exception ex) {
+        }
     }
     
     
